@@ -1,12 +1,24 @@
 
 # About
-Bibliography relevant to projects on Service Visualization
+Bibliography relevant to the paper on Service Visualization
 
-# Sources
+# Related Work Papers
+
+[Visualizing the Execution of Java Programs](https://courses.cs.washington.edu/courses/cse590n/03sp/lncspaper.pdf)
+
+    @inproceedings{Pauw02a,
+        Address = {London, UK},
+        Author = {De Pauw, Wim and Erik Jensen and Nick Mitchell and Gary Sevitsky and John M. Vlissides and Jeaha Yang},
+        Booktitle = {Revised Lectures on Software Visualization, International Seminar},
+        Isbn = {3-540-43323-6},
+        Pages = {151--162},
+        Publisher = {Springer-Verlag},
+        Title = {Visualizing the Execution of Java Programs},
+        Year = {2002}}
 
 
 
-# Arguments
+# Articles Relevant for the Argumentation
 
 [Bootstrapping an Ubiquitous Monitoring Ecosystem for Accelerating Vocabulary Acquisition](https://mircealungu.github.io/post/16-09-20-bootstrapping-an-ubiquitous-ecosystem/)
 
