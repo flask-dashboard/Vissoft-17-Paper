@@ -41,5 +41,3 @@ Bibliography relevant to the paper on Service Visualization
      keywords = {HCI, applied linguistics, software ecosystems},
     } 
 
-# Related Work 
-
