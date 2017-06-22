@@ -14,7 +14,8 @@
 	language=Python,
 	basicstyle=\footnotesize\ttfamily,
 	keywordstyle=\bfseries\color{MidnightBlue},
-	stringstyle=\color{PineGreen}
+	stringstyle=\color{PineGreen},
+  commentstyle=\color{SkyBlue}
 }
          
 
@@ -217,7 +218,7 @@ We have this system for helping learners read texts that they like, and enable t
   \begin{figure}[h!]
     \centering
     \includegraphics[width=\linewidth]{translation_endpoint_evolution.png}
-    \caption{Visualizing The Performance Evolution of the \epTranslations endpoint (the second from the top in Fig. \ref{fig:ep})}
+    \caption{Visualizing The Performance Evolution of the \epTranslations endpoint}
     \label{fig:tee}
   \end{figure}
 
@@ -234,19 +235,43 @@ We have this system for helping learners read texts that they like, and enable t
 
 \section {User Centered Visualization}
 
+  For service endpoints which run computations in real time as they are called, there might be very different timings based on the different loads that are sent to the endpoint. 
+
+  In our cases study, one of the slowest endpoints, and one with the higest variability is \epFeedItems: it retrieves a list of recommended articles for a given user. However, since a user can be subscribed to anything from one to three dozen article sources, and since the computation of the difficulty is personalized and it is slow, the variability in time among users is likely to be very large. 
+
+  \tool provides a way of grouping information on a per user basis. However, to do this, the developer must specify the way in which a given API call can be associated with a given user. There are multiple ways, the simplest takes again advantage of the strengths of the Flask framework which offers a global request object which contains session information: 
+
+  \begin{lstlisting}[float,caption=TBA,style=custompython]
+    
+    # app specific way of extracting the user
+    # from a flask request object    
+    def get_user_id(request):
+      sid = int(request.args['session'])
+      session = User.find_for_session(sid)
+      return user_id
+
+    # attaching the get_user_id function
+    dashboard.config.get_group_by = get_user_id
+
+  \end{lstlisting}
+
+
+  Sometimes, grouping the service calls per endpoint it is not sufficient. Figure \ref{fig:tpu} shows some of the results of calling the \epFeedItems endpoint for various users. 
+
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{time_per_user}
+    \caption{The \epFeedItems shows a very high variability across users}
+    \label{fig:tpu}
+  \end{figure}
+
+
   Different users might have different experiences: 
   - a user has 10K emails one has 10 emails
   - a user is subscribed to 20 feeds one to 2 feeds
 
   The system will have different processing times. 
   It is important for the DevOps-er to be able to understand the difference in performance on a per user basis. 
-
-  \begin{figure}[h!]
-    \centering
-    \includegraphics[width=\linewidth]{time_per_user}
-    \caption{One of the endpoints (/get\_feed\_items\_with\_metrics) shows a very high variability across users}
-    \label{fig:tpu}
-  \end{figure}
 
   If we try to show also per version: 
 
