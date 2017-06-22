@@ -223,12 +223,15 @@ We have this system for helping learners read texts that they like, and enable t
 
   This way can confirm that our performance improves: in the latest version (bottom-most box plot in Figure \ref{fig:tee}) we see the entire boxplot move to the left. 
 
-   One requirement that the maintainer requested at this point was {\bf extra informaiton about outliers}: Python stack trace, CPU load, request parameters, etc. in order for them to investigate the causes of these exceptionally slow response times. 
 
-   In order to address this, but not degrade the usual performance the \tool tracks for every endpoint a running average value. When it detects that a given endpoint is an outlier with respect to this value, it triggers an exceptional data collection routine which stores extra information about the current execution environment. 
+  \niceseparator
 
 
-\newpage
+  One requirement that the maintainer requested at this point was {\bf extra informaiton about outliers}: Python stack trace, CPU load, request parameters, etc. in order for them to investigate the causes of these exceptionally slow response times. 
+
+  In order to address this, but not degrade the usual performance the \tool tracks for every endpoint a running average value. When it detects that a given endpoint is an outlier with respect to this value, it triggers an exceptional data collection routine which stores extra information about the current execution environment. 
+
+
 \section {User Centered Visualization}
 
   Different users might have different experiences: 
