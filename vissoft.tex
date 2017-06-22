@@ -5,7 +5,18 @@
 \usepackage{listings}
 \usepackage[usenames, dvipsnames]{color}
 
-\lstset{language=Python}         
+\lstset{language=Python}
+
+\lstdefinestyle{custompython}{
+	belowcaptionskip=1\baselineskip,
+	frame=lr,
+	xleftmargin=\parindent,
+	language=Python,
+	basicstyle=\footnotesize\ttfamily,
+	keywordstyle=\bfseries\color{MidnightBlue},
+	stringstyle=\color{PineGreen}
+}
+         
 
 \graphicspath{{./img/}}
 
@@ -100,8 +111,9 @@ We have this system for helping learners read texts that they like, and enable t
 Our Solution: three lines of code that one must add to their Flask-enabled code:
 
 \mlv{do you know how to style the code env to make it look nicer? }
+\ml{see below/above}
 \mltp{fix this example pls}
-\begin{lstlisting}
+\begin{lstlisting}[float,caption=TBA,style=custompython]
 import dashboard
 
 dashboard.config.from_file('d.cfg')
@@ -119,6 +131,11 @@ And a small configuration file:
 
 \mltp{a small screenshot of how the dashboard allows one to select the interesting }
 
+\section{Case Study}
+
+Zeeguu case study description to be used as running example throughout the rest of the paper
+
+\ml{we should consider adding also one section in which the architecture/implementation and main features of the dashboard are presented before going on with discussing them in more depth in the following sections}
 
 \section{Overall Endpoint Utilization}
 
