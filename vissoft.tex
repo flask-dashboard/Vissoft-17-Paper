@@ -56,15 +56,33 @@ The abstract goes here.
 
 
 \section{Introduction}
-Every system is a distributed system nowadays \cite{}.
-
-\vspace {5cm}
+Every system is a distributed system nowadays \cite{}. 
 
 % \hfill mds
  
 % \hfill August 26, 2015
 
-We have this system for helping learners read texts that they like, and enable them to practice with exericses generated on their past readings.
+Python is currently one of the most popular programming languages for API web service development. It was the \todo{nth} most popular programming language in the year \todo{2017/16?}
+
+Flask is one of the two most popular web frameworks for Python. It is a lightweight alternative to web site and service development. This is why it is advertised as a {\em micro-framework}. The popularity of Flask is hinted at also by the large number \mltp{can we find an estimate on GH?} of open source projects that are hosted on GitHub which are based on it. 
+
+
+However, there is no dedicated solution for monitoring the performance of Flask web-applications. Thus, every one of those \todo{NNNN} has one of the following options when confronted with the need of gathering insight into the runtime behavior of their service: 
+
+  \begin{enumerate}
+
+    \item use a heaviweight professional API monitoring setup they require setting up a different server \mltp{can we find a few examples of professional but overkill tools? ideally they require setting up a bunch of servers, and writing configs in XML!}. 
+
+    \item implement their own analytics tool 
+
+    \item do not visualize their service and lack the insight into the performance of their services.
+
+  \end{enumerate}
+
+For projects which are done on a budget (e.g. research projects) the first and the second options are often not available due to time and financial constraints. 
+
+To avoid these projects ending up in the third situation, in this paper we present a low-effort, lightweight service monitoring API for Flask and Python web-services.
+
 
 Architecture: series of web and mobile applications built aroud a core web service implemented in Python and Flask which provides: 
 \begin{itemize}
@@ -73,9 +91,11 @@ Architecture: series of web and mobile applications built aroud a core web servi
   \item exercises
 \end{itemize}
 
-Python is popular. Flask a web micro-framework is also very popular within the Python community. \mltp{Can we come up with some measure of popularity for Flask? GitHub Projects? Google Trends. Etc. }
 
-However, there is no dedicated solution for monitoring the performance of Flask web-applications. Thus, every one of those \ml{NNNN} must implement their own or lack insight into how their service behaves. There are also professional API monitoring solutions, but they require setting up a different server \mltp{can we find a few examples of professional but overkill tools? ideally they require setting up a bunch of servers, and writing configs in XML!}
+
+We have this system for helping learners read texts that they like, and enable them to practice with exericses generated on their past readings.
+
+
 
 Our Solution: three lines of code that one must add to their Flask-enabled code:
 
