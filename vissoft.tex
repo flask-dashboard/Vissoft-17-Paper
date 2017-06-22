@@ -86,27 +86,13 @@ However, there is no dedicated solution for monitoring the performance of Flask 
 
     \item implement their own analytics tool 
 
-    \item do not visualize their service and lack the insight into the performance of their services.
+    \item live wihout service analytics insight \footnote{This is very real option: and was the situation with the API that will be presented in this case study for many months. }
 
   \end{enumerate}
 
 For projects which are done on a budget (e.g. research projects) the first and the second options are often not available due to time and financial constraints. 
 
 To avoid these projects ending up in the third situation, in this paper we present a low-effort, lightweight service monitoring API for Flask and Python web-services.
-
-
-Architecture: series of web and mobile applications built aroud a core web service implemented in Python and Flask which provides: 
-\begin{itemize}
-  \item contextual translations 
-  \item reading recommendations
-  \item exercises
-\end{itemize}
-
-
-
-We have this system for helping learners read texts that they like, and enable them to practice with exericses generated on their past readings.
-
-
 
 Our Solution: three lines of code that one must add to their Flask-enabled code:
 
@@ -135,7 +121,17 @@ And a small configuration file:
 
 Zeeguu case study description to be used as running example throughout the rest of the paper
 
+Architecture: series of web and mobile applications built aroud a core web service implemented in Python and Flask which provides: 
+\begin{itemize}
+  \item contextual translations 
+  \item reading recommendations
+  \item exercises
+\end{itemize}
+
+We have this system for helping learners read texts that they like, and enable them to practice with exericses generated on their past readings.
+
 \ml{we should consider adding also one section in which the architecture/implementation and main features of the dashboard are presented before going on with discussing them in more depth in the following sections}
+
 
 \section{Overall Endpoint Utilization}
 
