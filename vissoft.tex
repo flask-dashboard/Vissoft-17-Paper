@@ -82,11 +82,11 @@ However, there is no dedicated solution for monitoring the performance of Flask 
 
   \begin{enumerate}
 
-    \item use a heaviweight professional API monitoring setup they require setting up a different server \mltp{can we find a few examples of professional but overkill tools? ideally they require setting up a bunch of servers, and writing configs in XML!}. 
+    \item Use a heaviweight professional API monitoring setup they require setting up a different server \mltp{can we find a few examples of professional but overkill tools? ideally they require setting up a bunch of servers, and writing configs in XML!}. 
 
-    \item implement their own analytics tool 
+    \item Implement their own analytics tool 
 
-    \item live wihout service analytics insight \footnote{This is very real option: and was the situation with the API that will be presented in this case study for many months. }
+    \item Live wihout analytics insight into their services \footnote{This is very real option: and is exactly what happened to the API that will be presented in this case study for many months. }
 
   \end{enumerate}
 
@@ -94,7 +94,7 @@ For projects which are done on a budget (e.g. research projects) the first and t
 
 To avoid these projects ending up in the third situation, in this paper we present a low-effort, lightweight service monitoring API for Flask and Python web-services.
 
-Our Solution: three lines of code that one must add to their Flask-enabled code:
+To start using our Python library for service visualization solution one needs to add exactly three lines of code that connect their Flask application object with the dashboard:
 
 \mlv{do you know how to style the code env to make it look nicer? }
 \ml{see below/above}
@@ -107,9 +107,10 @@ dashboard....
 
 \end{lstlisting}
 
+
 And a small configuration file: 
 
-\mltp{example of minimal (the most minimal possible, we'll introduce later extra configs) config file.}
+\mltp{example of minimal (the most minimal possible, we'll introduce later extra configs) config file. Or, if we can we do completely w/o config that would look even better. And we'll introduce the extra stuff later}
 
 \mltp{a small description of how the dashboard automatically intercepts the calls to the various API calls}
 
