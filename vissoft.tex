@@ -207,12 +207,15 @@ In the remainder of the article:
 
   % most important endpoints that they decided to improve the performance of is the second from the top in Figure \ref{fig:ep}: the endpoint that returns translations. This is particularily critical since it is part of a live interaction loop. 
 
+\newpage
   \niceseparator
 
   To be able to see their improvements in action, the maintainer had to add an extra configuration information to be able to find the `.git' folder from where to retrieve the current version of the deployed application: 
 
-  \begin{lstlisting}[style=custompython]
+  \begin{lstlisting}[caption=Configuring the \tool with the path to the .git folder enables the generation of evolutionary performance graphs, style=custompython]
+
   dashboard.config.git = 'path/to/git-root/of/app'
+  
   \end{lstlisting}
 
   After redeploying the API, the dashboard can now automatically detect the current version of the project, and can group measurements by version. \tool can now generate the view in Figure \ref{fig:tee} where the performance of the give endpoint is tallied by version.
