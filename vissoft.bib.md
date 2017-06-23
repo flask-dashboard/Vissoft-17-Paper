@@ -4,7 +4,7 @@ Bibliography relevant to the paper on Service Visualization
 
 # Related Work Papers
 
-[Visualizing the Execution of Java Programs](https://courses.cs.washington.edu/courses/cse590n/03sp/lncspaper.pdf)
+## [Visualizing the Execution of Java Programs](https://courses.cs.washington.edu/courses/cse590n/03sp/lncspaper.pdf)
 
     @inproceedings{Pauw02a,
         Address = {London, UK},
@@ -16,7 +16,7 @@ Bibliography relevant to the paper on Service Visualization
         Title = {Visualizing the Execution of Java Programs},
         Year = {2002}}
 
-[Run-time monitoring in service-oriented architectures](https://pdfs.semanticscholar.org/a112/a0386f2f7c9837df2f8b768f444387a95dd2.pdf)
+## [Run-time monitoring in service-oriented architectures](https://pdfs.semanticscholar.org/a112/a0386f2f7c9837df2f8b768f444387a95dd2.pdf)
 
     @incollection{ghezzi2007run,
         title={Run-time monitoring in service-oriented architectures},
@@ -28,7 +28,7 @@ Bibliography relevant to the paper on Service Visualization
     }
 
 
-Managing evolving services
+## Managing evolving services
 
     @article{papazoglou2011managing,
         title={Managing evolving services},
