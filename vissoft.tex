@@ -91,7 +91,7 @@ However, there is no dedicated solution for monitoring the performance of Flask 
 
   \begin{enumerate}
 
-    \item Use a heaviweight professional API monitoring setup they require setting up a different server \mltp{can we find a few examples of professional but overkill tools? ideally they require setting up a bunch of servers, and writing configs in XML!}. 
+    \item Use a heavyweight professional API monitoring setup they require setting up a different server \mltp{can we find a few examples of professional but overkill tools? ideally they require setting up a bunch of servers, and writing configs in XML!}. 
 
     \item Implement their own analytics tool 
 
@@ -105,7 +105,7 @@ For projects which are done on a budget (e.g. research projects) the first and t
 
 To avoid these projects ending up in the third situation, in this paper we present a low-effort, lightweight service monitoring API for Flask and Python web-services.
 
-To start using our Python library for service visualization solution one needs to one line of to connect their Flask application object with the dashboard and one extra line of code to import the library:
+To start using our Python library for service visualization, one needs one line of code to connect their Flask application object with the dashboard and an additional one to import the library:
 
 % dashboard.config.from_file('dashboard.cfg')
 \begin{lstlisting}[caption=Configuring the \tool is straightforward,style=custompython]
@@ -116,11 +116,25 @@ To start using our Python library for service visualization solution one needs t
 \end{lstlisting}
 
 
-\mltp{a small description of how the dashboard automatically intercepts the calls to the various API calls}
+%\mltp{a small description of how the dashboard automatically intercepts the calls to the various API calls}
+After binding to the service, \tool will search for all endpoints defined in it. These will be presented to the user, which can select the ones that should be monitored, see figure \ref{fig:sep}. In order to monitor an endpoint, \tool will create a function wrapper for the API function that corresponds to the endpoint. This way, the wrapper will be executed whenever that API call is made. The wrapper contains the code that takes care of monitoring an endpoint.
 
-\mltp{metion also that the dashboard automatically is available at /dashboard endpoint}
+% \mltp{metion also that the dashboard automatically is available at /dashboard endpoint}
+By default, \tool is available at the \texttt{/dashboard} route of the Flask app. A custom route can also be defined by simply adding one extra line of code:
 
-\mltp{a small screenshot of how the dashboard allows one to select the interesting }
+\begin{lstlisting}[caption=Configuring the \tool with a custom route for it to be accessed on is straightforward, style=custompython]
+
+  dashboard.config.link = 'custom-link'
+
+  \end{lstlisting}
+
+% \mltp{a small screenshot of how the dashboard allows one to select the interesting }
+  \begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{selecting_endpoints.png}
+    \caption{All of the endpoints of the Flask app are shown such that a selection can be made for monitoring them}
+    \label{fig:sep}
+  \end{figure}
 
 \section{Case Study}
 
@@ -135,7 +149,36 @@ Architecture: series of web and mobile applications built aroud a core web servi
 
 We have this system for helping learners read texts that they like, and enable them to practice with exericses generated on their past readings.
 
-\ml{we should consider adding also one section in which the architecture/implementation and main features of the dashboard are presented before going on with discussing them in more depth in the following sections --- this should include a rundown on which views are provided from where (overview or per endpoint)}
+% \ml{we should consider adding also one section in which the architecture/implementation and main features of the dashboard are presented before going on with discussing them in more depth in the following sections --- this should include a rundown on which views are provided from where (overview or per endpoint)}
+
+\section{The \tool}
+
+The \tool as well as the web service that is being monitored in the case study is written in Python using Flask. This makes binding to the web service relatively easy, as well as adding additional routes to the service for interacting with the \tool. There are three main endpoints that are available using this tool:
+\begin{enumerate}
+  \item one which shows a list of the endpoints of the service that can be monitored
+  \item one which contains an overview of the measurements of the selected endpoints
+  \item one which contains more detailed information about the measurements of a specific endpoint
+\end{enumerate}
+
+As mentioned before, the first endpoint enables the user of the tool to specify which endpoints should be monitored. The second endpoint conists of two parts, one of them being a table that shows for every monitored endpoint the number of hits it has gotten, the time it was last accessed and its average execution time. The second part is a view with four graphs which show:
+\begin{itemize} 
+  \item A heatmap of the total number of requests to the monitored endpoints
+  \item A stacked bar chart that shows the total number of requests to the monitored endpoints per endpoint per day
+  \item A boxplot graph showing the average execution time per version of the web service
+  \item A boxplot graph showing the average execution time for every monitored endpoint
+\end{itemize}
+
+The third main endpoint that the \tool has consists of three parts. One of them is a table that shows additional information about a specific monitored endpoint, like the version of the web service in which the endpoint was added to it along with the date. The second part is again a view, this time with seven graphs which show information specific to one monitored endpoint:
+\begin{itemize} 
+  \item A heatmap of the number of requests
+  \item A time series of the minumum, maximum and average execution time
+  \item A time series of the number of hits per hour 
+  \item A chart that shows the average execution time per user per version of the service
+  \item A chart that shows the average execution time per IP Address per version of the service
+  \item A boxplot graph showing the execution time per version
+  \item A boxplot graph showing the execution time per user
+\end{itemize}
+The third part contains information about outliers in the measurements if they exist for that endpoint. There is information here about the time when the outlier was recorded, its execution time, its request url, request values, request headers, request environment, the cpu usage and memory usage at the time of recording the outlier and last but not least the stacktrace at that time. 
 
 In the remainder of the article: 
 
@@ -143,7 +186,7 @@ In the remainder of the article:
   \item all the views are screenshots from the actual tool; in the tool they are interactive with the user being able to zoom in, pan, etc.
 \end{itemize}
 
-\newpage
+
 \section{Overall Endpoint Utilization}
 
   The most fundamental insight that a service maintainer needs regards service utilization. \vspace{0.5cm}
@@ -160,7 +203,7 @@ In the remainder of the article:
   \end{enumerate}
 
 
-  \begin{figure}[h!]
+  \begin{figure}[!ht]
     \centering
     \includegraphics[width=\linewidth]{all_endpoints_usage.png}
     \caption{The number of requests per endpoint per day view shows the overall utilization of the monitored application}
@@ -176,7 +219,7 @@ In the remainder of the article:
 
   % \mltp{ can we add vertical lines that highlight the beginng of a new week (e.g. before Sunday): }
 
-    \begin{figure}[h!]
+    \begin{figure}[!ht]
       \centering
       \includegraphics[width=\linewidth]{daily_patterns}
       \caption{Usage patterns become easy to spot in the requests per hour heatmap}
@@ -187,14 +230,14 @@ In the remainder of the article:
   Figure \ref{fig:dp} shows the users of the Zeeguu API not practicing  languages at night, but otherwise hitting the API around the clock with several hundred hits per hour. 
 
 
-\newpage
+
 \section{Visualizing Service Performance}
 
   The \tool also collects information regarding endpoint performance. The view in Figure \ref{fig:ep} summarizes the response times for various endpoints by using boxplots. 
 
   % \ml{Thijs and Patrick... the visualization people will complain when they see that we have different colors for the same endpoint in different graphs. Can we insure that there is consistency in colors? Simplest trick would be to obtain the color by hashing the name of the endpoint... in that case the same endpoint woudl have the same color in various graphs.}
 
-  \begin{figure}[h!]
+  \begin{figure}[!ht]
     \centering
     \includegraphics[width=\linewidth]{endpoint_performance.png}
     \caption{The response time (in ms) per monitored endpoint view allows for identifying performance variability and balancing issues}
@@ -205,7 +248,7 @@ In the remainder of the article:
 
   % most important endpoints that they decided to improve the performance of is the second from the top in Figure \ref{fig:ep}: the endpoint that returns translations. This is particularily critical since it is part of a live interaction loop. 
 
-\newpage
+
   \niceseparator
 
   To be able to see their improvements in action, the maintainer had to add an extra configuration information to be able to find the `.git' folder from where to retrieve the current version of the deployed application: 
@@ -218,7 +261,7 @@ In the remainder of the article:
 
   After redeploying the API, the dashboard can now automatically detect the current version of the project, and can group measurements by version. \tool can now generate the view in Figure \ref{fig:tee} where the performance of the give endpoint is tallied by version.
 
-  \begin{figure}[h!]
+  \begin{figure}[!ht]
     \centering
     \includegraphics[width=\linewidth]{translation_endpoint_evolution.png}
     \caption{Visualizing The Performance Evolution of the \epTranslations endpoint}
@@ -243,7 +286,7 @@ In the remainder of the article:
 
   \tool provides a way of grouping information on a per user basis. However, to do this, the developer must specify the way in which a given API call can be associated with a given user. There are multiple ways, the simplest takes again advantage of the strengths of the Flask framework which offers a global request object which contains session information: 
 
-  \begin{lstlisting}[float,caption=TBA,style=custompython]
+  \begin{lstlisting}[float,caption=Simply define a custom app-specific function for user retrieval and pass it to the \tool to group information by user,style=custompython]
     
     # app specific way of extracting the user
     # from a flask request object    
@@ -260,7 +303,7 @@ In the remainder of the article:
 
   Sometimes, grouping the service calls per endpoint it is not sufficient. Figure \ref{fig:tpu} shows some of the results of calling the \epFeedItems endpoint for various users. 
 
-  \begin{figure}[h!]
+  \begin{figure}[!ht]
     \centering
     \includegraphics[width=\linewidth]{time_per_user}
     \caption{The \epFeedItems shows a very high variability across users}
@@ -277,7 +320,7 @@ In the remainder of the article:
 
   If we try to show also per version: 
 
-  \begin{figure}[h!]
+  \begin{figure}[!ht]
     \centering
     \includegraphics[width=\linewidth]{time_per_user_per_version}
     \caption{Caption here}
