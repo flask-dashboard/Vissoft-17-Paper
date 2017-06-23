@@ -106,21 +106,16 @@ To avoid these projects ending up in the third situation, in this paper we prese
 
 To start using our Python library for service visualization solution one needs to add exactly three lines of code that connect their Flask application object with the dashboard:
 
-%\mlv{do you know how to style the code env to make it look nicer? }
-%\ml{see below/above}
-\mltp{fix this example pls}
 \begin{lstlisting}[float,caption=TBA,style=custompython]
-import dashboard
 
-dashboard.config.from_file('d.cfg')
-dashboard.bind(app=flask_app)
+  import dashboard
+  dashboard.config.from_file('dashboard.cfg')
+  dashboard.bind(app=flask_app)
 
 \end{lstlisting}
 
 
-And a small configuration file: 
-
-\mltp{example of minimal (the most minimal possible, we'll introduce later extra configs) config file. Or, if we can we do completely w/o config that would look even better. And we'll introduce the extra stuff later}
+\mltp{Can we do with only these lines and w/o a config? Then we'll introduce the extra config later, as it becomes needed}
 
 \mltp{a small description of how the dashboard automatically intercepts the calls to the various API calls}
 
@@ -144,14 +139,14 @@ We have this system for helping learners read texts that they like, and enable t
 \ml{we should consider adding also one section in which the architecture/implementation and main features of the dashboard are presented before going on with discussing them in more depth in the following sections --- this should include a rundown on which views are provided from where (overview or per endpoint)}
 
 
+\newpage
 \section{Overall Endpoint Utilization}
 
   The most basic insights that a service maintainer must answer regard the utilization of their service. \tool presents two perspectives that provide insight into this question. 
 
 
   Figure \ref{fig:aeu} shows the usage of the services on a daily basis while highlighting the contribution of the individual endpoints\footnote{We recommend obtaining a color version of this paper for better readability}. 
-
-  One can see that the service at its peak has about 2500 hits per day. Moreover, one can see the way the users are using the platform since the different endpoints are indicators of different activity types, e.g.: 
+  One can see that the service at its peak has about 2500 hits per day and gain insight into the way users interact with the platform since the endpoints are indicators of different activity types, e.g.: 
 
   \begin{itemize}
 
@@ -171,30 +166,24 @@ We have this system for helping learners read texts that they like, and enable t
     \label{fig:aeu}
   \end{figure}
 
-  \mltp{Could we regenerte this graph with the same colors as in the previous one? Otherwise the Vissoft people will surely complain}
-
-  Besides showing which endpoints are used, this view is informative for the maintainer since it provides insight into which endpoints are used. In our case study, the maintainer of the API has decided to not remove several endpoints when they saw that that were being used \footnote{Usage information can also be used to increase the confidence of the maintianer that a given endpoint is not used}
+  This visualization also provides feedback to the maintainer into which endpoints can be deprecated and which can not. In our case study, the maintainer decided to not remove several endpoints once they saw that contrary to their expectations, the endpoints were being used \footnote{Usage information can also be used to increase the confidence of the maintainer that a given endpoint is not used}
 
   \niceseparator
 
   A second question that an API maintainer must answer regards cyclic patterns of usage. 
+  % \mlv{can we provide some support for this claim? a reference maybe?}
 
-  \mlv{can we provide some support for this claim? a reference maybe?}
-
-  \mltp{ can we add vertical lines that highlight the beginng of a new week (e.g. before Sunday): 
-
-  }
+  % \mltp{ can we add vertical lines that highlight the beginng of a new week (e.g. before Sunday): }
 
     \begin{figure}[h!]
       \centering
-      \includegraphics[width=\linewidth]{daily_patterns}
+      \includegraphics[width=0.7\linewidth]{daily_patterns}
       \caption{Usage patterns become easy to spot in the requests per hour heatmap}
       \label{fig:dp}
     \end{figure}
 
 
-  Figure \ref{fig:dp} shows only one clear pattern: the users of our API do not practice foreign languages as night. Besides that, the API is used around the clock with usually a few hundred hits per hour. So the load currently is not that high. 
-
+  Figure \ref{fig:dp} shows one clear pattern: the users of the Zeeguu API do not practice foreign languages as night. Besides that, the API is used around the clock with usually a few hundred hits per hour. So the load currently is not that high. 
 
 
 \section{Visualizing Service Performance}
