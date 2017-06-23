@@ -67,3 +67,21 @@ Bibliography relevant to the paper on Visualization for Python and Flask-based W
      keywords = {HCI, applied linguistics, software ecosystems},
     } 
 
+Developers need to understand the downstream:
+
+@inproceedings{Haen14a,
+  Annote = {internationalworkshop},
+  Author = {Haenni, Nicole and Lungu, Mircea and Schwarz, Niko and Nierstrasz, Oscar},
+  Booktitle = {Proceedings of the 2nd Workshop on Ecosystem Architectures (WEA'14)},
+  Keywords = {ecosystems scg-pub snf-asa1 scg14 jb14},
+  Medium = {2},
+  Pages = {1--6},
+  Peerreview = {yes},
+  Title = {A Quantitative Analysis of Developer Information Needs in Software Ecosystems},
+  Url = {http://scg.unibe.ch/archive/papers/Haen14a-QuantitativeEcosystemInformationNeeds.pdf},
+  Doi = {10.1145/2642803.2642815},
+  Year = {2014}
+  }
+
+
+
