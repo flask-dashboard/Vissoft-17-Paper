@@ -16,8 +16,7 @@ Bibliography relevant to the paper on Service Visualization
         Title = {Visualizing the Execution of Java Programs},
         Year = {2002}}
 
-[Run-time monitoring in service-oriented architectures]
-(https://pdfs.semanticscholar.org/a112/a0386f2f7c9837df2f8b768f444387a95dd2.pdf)
+[Run-time monitoring in service-oriented architectures](https://pdfs.semanticscholar.org/a112/a0386f2f7c9837df2f8b768f444387a95dd2.pdf)
 
     @incollection{ghezzi2007run,
         title={Run-time monitoring in service-oriented architectures},
