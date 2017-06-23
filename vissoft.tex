@@ -147,7 +147,7 @@ In the remainder of the article:
 \newpage
 \section{Overall Endpoint Utilization}
 
-  The most fundamental insight that a service maintainer needs regards service utilization. 
+  The most fundamental insight that a service maintainer needs regards service utilization. \vspace{0.5cm}
 
   Figure \ref{fig:aeu} shows a first perspective on endpoint utilization that \tool provides: a stacked bar chart of the number of hits to various endpoints grouped by day \footnote{We recommend obtaining a color version of this paper for better readability} shows that at its peak the API has about 2500 hits per day. 
   The way users interact with the platform can also be inferred since the endpoints are indicators of different activity types, e.g.: 
@@ -163,7 +163,7 @@ In the remainder of the article:
 
   \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.9\linewidth]{all_endpoints_usage.png}
+    \includegraphics[width=\linewidth]{all_endpoints_usage.png}
     \caption{The number of requests per endpoint per day view shows the overall utilization of the monitored application}
     \label{fig:aeu}
   \end{figure}
@@ -179,7 +179,7 @@ In the remainder of the article:
 
     \begin{figure}[h!]
       \centering
-      \includegraphics[width=0.7\linewidth]{daily_patterns}
+      \includegraphics[width=\linewidth]{daily_patterns}
       \caption{Usage patterns become easy to spot in the requests per hour heatmap}
       \label{fig:dp}
     \end{figure}
@@ -188,7 +188,7 @@ In the remainder of the article:
   Figure \ref{fig:dp} shows the users of the Zeeguu API not practicing  languages at night, but otherwise hitting the API around the clock with several hundred hits per hour. 
 
 
-
+\newpage
 \section{Visualizing Service Performance}
 
   The \tool also collects information regarding endpoint performance. The view in Figure \ref{fig:ep} summarizes the response times for various endpoints by using boxplots. 
@@ -202,19 +202,20 @@ In the remainder of the article:
     \label{fig:ep}
   \end{figure}
 
-  After investigating this view it became clear to the maintainer that three of the endpoints had very large variation in performance. One of the most important endpoints that they decided to improve the performance of is the second from the top in Figure \ref{fig:ep}: the endpoint that returns translations. This is particularily critical since it is part of a live interaction loop. 
+  After investigating this view it became clear to the maintainer that three of the endpoints had very large variation in performance. One of the three was most critical was optimized first: the \epTranslations is part of a live interaction and it having such variable performance was a usability problem for the users of the reader applications. 
+
+  % most important endpoints that they decided to improve the performance of is the second from the top in Figure \ref{fig:ep}: the endpoint that returns translations. This is particularily critical since it is part of a live interaction loop. 
 
   \niceseparator
 
-  Once they increased the performance of the endpoint, the maintainer realized that this graph was not that useful anymore. Because they could not see the improvements. 
+  To be able to see their improvements in action, the maintainer had to add an extra configuration line to the `dashboard.cfg' file: 
 
-  For such situations, \tool provides an extra configuration directive:
+  \begin{lstlisting}[style=custompython]
+  [dashboard]
+  GIT_ROOT=<path to .git folder of the app>
+  \end{lstlisting}
 
- \mltp{Add extra config line here}
-
-  If the directive is enabled, the performance data is grouped by commit and commits are detected by analyzing the .git folder on the machine. 
-
-  Figure \ref{fig:tee} shows the performance of the give endpoint 
+  After redeploying the API, the dashboard can now automatically detect the current version of the project, and can group measurements by this criterion. Based on this data, \tool can generate the view in Figure \ref{fig:tee} where the performance of the give endpoint is tallied by version.
 
   \begin{figure}[h!]
     \centering
@@ -223,15 +224,14 @@ In the remainder of the article:
     \label{fig:tee}
   \end{figure}
 
-  This way can confirm that our performance improves: in the latest version (bottom-most box plot in Figure \ref{fig:tee}) we see the entire boxplot move to the left. 
+  This way the maintainer could confirm that the performance of the translation endpoint improved: in the latest version (bottom-most box plot in Figure \ref{fig:tee}) we see the entire boxplot move to the left and there being less outliers.
 
 
   \niceseparator
 
+  The \tool also collects {\bf extra informaiton about outliers}: Python stack trace, CPU load, request parameters, etc. in order to allow the maintainer to investigate the causes of these exceptionally slow response times. 
 
-  One requirement that the maintainer requested at this point was {\bf extra informaiton about outliers}: Python stack trace, CPU load, request parameters, etc. in order for them to investigate the causes of these exceptionally slow response times. 
-
-  In order to address this, but not degrade the usual performance the \tool tracks for every endpoint a running average value. When it detects that a given endpoint is an outlier with respect to this value, it triggers an exceptional data collection routine which stores extra information about the current execution environment. 
+  In order to address this, but not degrade the usual performance the \tool tracks for every endpoint a running average value. When it detects that a given request is an outlier with respect to this past average running value, it triggers the {\em outlier data collection routine} which stores all the previously listed extra information about the current execution environment. 
 
 
 \section {User Centered Visualization}
