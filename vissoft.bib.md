@@ -28,6 +28,8 @@ Bibliography relevant to the paper on Service Visualization
     }
 
 
+Managing evolving services
+
     @article{papazoglou2011managing,
         title={Managing evolving services},
         author={Papazoglou, M and Andrikopoulos, Vasilios and Benbernou, Salima},
