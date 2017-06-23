@@ -105,18 +105,16 @@ For projects which are done on a budget (e.g. research projects) the first and t
 
 To avoid these projects ending up in the third situation, in this paper we present a low-effort, lightweight service monitoring API for Flask and Python web-services.
 
-To start using our Python library for service visualization solution one needs to add exactly three lines of code that connect their Flask application object with the dashboard:
+To start using our Python library for service visualization solution one needs to one line of to connect their Flask application object with the dashboard and one extra line of code to import the library:
 
-\begin{lstlisting}[float,caption=TBA,style=custompython]
+% dashboard.config.from_file('dashboard.cfg')
+\begin{lstlisting}[caption=Configuring the \tool is straightforward,style=custompython]
 
   import dashboard
-  dashboard.config.from_file('dashboard.cfg')
   dashboard.bind(app=flask_app)
 
 \end{lstlisting}
 
-
-\mltp{Can we do with only these lines and w/o a config? Then we'll introduce the extra config later, as it becomes needed}
 
 \mltp{a small description of how the dashboard automatically intercepts the calls to the various API calls}
 
@@ -215,7 +213,7 @@ In the remainder of the article:
   \begin{lstlisting}[caption=Configuring the \tool with the path to the .git folder enables the generation of evolutionary performance graphs, style=custompython]
 
   dashboard.config.git = 'path/to/git-root/of/app'
-  
+
   \end{lstlisting}
 
   After redeploying the API, the dashboard can now automatically detect the current version of the project, and can group measurements by version. \tool can now generate the view in Figure \ref{fig:tee} where the performance of the give endpoint is tallied by version.
