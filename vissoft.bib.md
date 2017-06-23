@@ -16,6 +16,27 @@ Bibliography relevant to the paper on Service Visualization
         Title = {Visualizing the Execution of Java Programs},
         Year = {2002}}
 
+    @incollection{ghezzi2007run,
+        title={Run-time monitoring in service-oriented architectures},
+        author={Ghezzi, Carlo and Guinea, Sam},
+        booktitle={Test and analysis of web services},
+        pages={237--264},
+        year={2007},
+        publisher={Springer}
+    }
+
+    @article{papazoglou2011managing,
+        title={Managing evolving services},
+        author={Papazoglou, M and Andrikopoulos, Vasilios and Benbernou, Salima},
+        journal={Software},
+        volume={28},
+        number={3},
+        pages={49--55},
+        year={2011},
+        publisher={IEEE}
+    }
+        
+
 
 
 # Articles Relevant for the Argumentation
