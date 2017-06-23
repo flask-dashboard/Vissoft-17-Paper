@@ -46,6 +46,17 @@ Bibliography relevant to the paper on Visualization for Python and Flask-based W
 
 # Articles Relevant for the Argumentation
 
+@article{cavage2013there,
+title={There is no getting around it: you are building a distributed system},
+author={Cavage, Mark},
+journal={Communications of the ACM},
+volume={56},
+number={6},
+pages={63--70},
+year={2013},
+publisher={ACM}
+}
+
 [Bootstrapping an Ubiquitous Monitoring Ecosystem for Accelerating Vocabulary Acquisition](https://mircealungu.github.io/post/16-09-20-bootstrapping-an-ubiquitous-ecosystem/)
 
     @inproceedings{Lungu16,
