@@ -48,16 +48,16 @@ Bibliography relevant to the paper on Visualization for Python and Flask-based W
 
 [There is no getting around it: you are building a distributed system](http://queue.acm.org/detail.cfm?id=2482856)
 
-  @article{cavage2013there,
-  title={There is no getting around it: you are building a distributed system},
-  author={Cavage, Mark},
-  journal={Communications of the ACM},
-  volume={56},
-  number={6},
-  pages={63--70},
-  year={2013},
-  publisher={ACM}
-  }
+    @article{cavage2013there,
+      title={There is no getting around it: you are building a distributed system},
+      author={Cavage, Mark},
+      journal={Communications of the ACM},
+      volume={56},
+      number={6},
+      pages={63--70},
+      year={2013},
+      publisher={ACM}
+      }
 
 [Bootstrapping an Ubiquitous Monitoring Ecosystem for Accelerating Vocabulary Acquisition](https://mircealungu.github.io/post/16-09-20-bootstrapping-an-ubiquitous-ecosystem/)
 
@@ -82,19 +82,19 @@ Bibliography relevant to the paper on Visualization for Python and Flask-based W
 
 A Quantitative Analysis of Developer Information Needs in Software Ecosystems
 
-  @inproceedings{Haen14a,
-    Annote = {internationalworkshop},
-    Author = {Haenni, Nicole and Lungu, Mircea and Schwarz, Niko and Nierstrasz, Oscar},
-    Booktitle = {Proceedings of the 2nd Workshop on Ecosystem Architectures (WEA'14)},
-    Keywords = {ecosystems scg-pub snf-asa1 scg14 jb14},
-    Medium = {2},
-    Pages = {1--6},
-    Peerreview = {yes},
-    Title = {A Quantitative Analysis of Developer Information Needs in Software Ecosystems},
-    Url = {http://scg.unibe.ch/archive/papers/Haen14a-QuantitativeEcosystemInformationNeeds.pdf},
-    Doi = {10.1145/2642803.2642815},
-    Year = {2014}
-    }
+    @inproceedings{Haen14a,
+        Annote = {internationalworkshop},
+        Author = {Haenni, Nicole and Lungu, Mircea and Schwarz, Niko and Nierstrasz, Oscar},
+        Booktitle = {Proceedings of the 2nd Workshop on Ecosystem Architectures (WEA'14)},
+        Keywords = {ecosystems scg-pub snf-asa1 scg14 jb14},
+        Medium = {2},
+        Pages = {1--6},
+        Peerreview = {yes},
+        Title = {A Quantitative Analysis of Developer Information Needs in Software Ecosystems},
+        Url = {http://scg.unibe.ch/archive/papers/Haen14a-QuantitativeEcosystemInformationNeeds.pdf},
+        Doi = {10.1145/2642803.2642815},
+        Year = {2014}
+        }
 
 
 
