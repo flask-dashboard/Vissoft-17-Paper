@@ -1,6 +1,7 @@
 \documentclass[conference]{IEEEtran}
 
 \usepackage{graphicx}
+\usepackage{hyperref}
 \usepackage{xspace}
 \usepackage{listings}
 \usepackage[usenames, dvipsnames]{color}
@@ -208,14 +209,13 @@ In the remainder of the article:
 
   \niceseparator
 
-  To be able to see their improvements in action, the maintainer had to add an extra configuration line to the `dashboard.cfg' file: 
+  To be able to see their improvements in action, the maintainer had to add an extra configuration information to be able to find the `.git' folder from where to retrieve the current version of the deployed application: 
 
   \begin{lstlisting}[style=custompython]
-  [dashboard]
-  GIT_ROOT=<path to .git folder of the app>
+  dashboard.config.git = 'path/to/git-root/of/app'
   \end{lstlisting}
 
-  After redeploying the API, the dashboard can now automatically detect the current version of the project, and can group measurements by this criterion. Based on this data, \tool can generate the view in Figure \ref{fig:tee} where the performance of the give endpoint is tallied by version.
+  After redeploying the API, the dashboard can now automatically detect the current version of the project, and can group measurements by version. \tool can now generate the view in Figure \ref{fig:tee} where the performance of the give endpoint is tallied by version.
 
   \begin{figure}[h!]
     \centering
@@ -224,7 +224,7 @@ In the remainder of the article:
     \label{fig:tee}
   \end{figure}
 
-  This way the maintainer could confirm that the performance of the translation endpoint improved: in the latest version (bottom-most box plot in Figure \ref{fig:tee}) we see the entire boxplot move to the left and there being less outliers.
+  This way the maintainer could confirm that the performance of the translation endpoint improved: in the latest version (bottom-most box plot in Figure \ref{fig:tee}) the entire boxplot moved to the left and there are fewer outliers.
 
 
   \niceseparator
@@ -287,7 +287,7 @@ In the remainder of the article:
 
 \section{Tool Availability}
 
-The code of \tool is available online at ...
+The code of \tool is available under an open-source permissive MIT license on Github \footnote{\url{https://github.com/mircealungu/automatic-monitoring-dasboard}}.
 
 The images in this paper are screenshots of the actual deployment of the tool which can be found at {https://zeeguu.unibe.ch/api/dashboard}. For the readers of this paper to be able to see the tool in action, they can login with the username and password: guest, dashboardguest!. 
 \mltp{we should add a guest/guest username password which is allowed to only visualize things, but not modify anything, and not export anything!}
