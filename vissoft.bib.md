@@ -1,6 +1,6 @@
 
 # About
-Bibliography relevant to the paper on Service Visualization
+Bibliography relevant to the paper on Visualization for Python and Flask-based Web Services
 
 # Related Work Papers
 
