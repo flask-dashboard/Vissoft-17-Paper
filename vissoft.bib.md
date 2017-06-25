@@ -96,5 +96,18 @@ A Quantitative Analysis of Developer Information Needs in Software Ecosystems
         Year = {2014}
         }
 
+## Useful links
+A quick introduction into Flask
+
+    @misc{ flask:tutorial,
+        author = "Armin Ronacher",
+        title = "Quickstart",
+        year = "2010",
+        howpublished = "\url{http://flask.pocoo.org/docs/0.12/quickstart/#quickstart}",
+        note = "[Online; accessed 25-June-2017]"
+    }
+
+
+
 
 
