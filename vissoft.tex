@@ -214,7 +214,7 @@ In the remainder of the article:
     \label{fig:aeu}
   \end{figure}
 
-  This visualization also provides feedback to the maintainer when deciding aboiut endpoint deprecation, the most elementary way of {\em understanding the needs of the downstream} \cite{Haen14a}. In our case study, the maintainer decided to not remove several endpoints once they saw that, contrary to their expectations, they were being used.\footnote{Usage information can also be used to increase the confidence of the maintainer that a given endpoint is not used, although it is not a proof.}
+  This visualization also provides feedback to the maintainer when deciding about endpoint deprecation, the most elementary way of {\em understanding the needs of the downstream} \cite{Haen14a}. In our case study, the maintainer decided to not remove several endpoints once they saw that, contrary to their expectations, they were being used.\footnote{Usage information can also be used to increase the confidence of the maintainer that a given endpoint is not used, although it is not a proof.}
 
   \niceseparator
 
@@ -241,6 +241,7 @@ In the remainder of the article:
   The \tool also collects information regarding endpoint performance. The view in Figure \ref{fig:ep} summarizes the response times for various endpoints by using boxplots. 
 
   % \ml{Thijs and Patrick... the visualization people will complain when they see that we have different colors for the same endpoint in different graphs. Can we insure that there is consistency in colors? Simplest trick would be to obtain the color by hashing the name of the endpoint... in that case the same endpoint would have the same color in various graphs.}
+  % This is supported in the latest version of the dashboard
 
   \begin{figure}[!ht]
     \centering
@@ -278,7 +279,7 @@ In the remainder of the article:
 
   \niceseparator
 
-  The \tool also collects {\bf extra informaiton about outliers}: Python stack trace, CPU load, request parameters, etc. in order to allow the maintainer to investigate the causes of these exceptionally slow response times. 
+  The \tool also collects {\bf extra information about outliers}: Python stack trace, CPU load, request parameters, etc. in order to allow the maintainer to investigate the causes of these exceptionally slow response times. 
 
   In order to address this, but not degrade the usual performance the \tool tracks for every endpoint a running average value. When it detects that a given request is an outlier with respect to this past average running value, it triggers the {\em outlier data collection routine} which stores all the previously listed extra information about the current execution environment. 
 
@@ -287,7 +288,7 @@ In the remainder of the article:
 
   For service endpoints which run computations in real time as they are called, there might be very different timings based on the different loads that are sent to the endpoint. 
 
-  In our cases study, one of the slowest endpoints, and one with the higest variability is \epFeedItems: it retrieves a list of recommended articles for a given user. However, since a user can be subscribed to anything from one to three dozen article sources, and since the computation of the difficulty is personalized and it is slow, the variability in time among users is likely to be very large. 
+  In our cases study, one of the slowest endpoints, and one with the highest variability is \epFeedItems: it retrieves a list of recommended articles for a given user. However, since a user can be subscribed to anything from one to three dozen article sources, and since the computation of the difficulty is personalized and it is slow, the variability in time among users is likely to be very large. 
 
   \tool provides a way of grouping information on a per user basis. However, to do this, the developer must specify the way in which a given API call can be associated with a given user. There are multiple ways, the simplest takes again advantage of the strengths of the Flask framework which offers a global request object which contains session information: 
 
@@ -336,10 +337,9 @@ In the remainder of the article:
 
 \section{Tool Availability}
 
-The code of \tool is available under an open-source permissive MIT license on Github \footnote{\url{https://github.com/mircealungu/automatic-monitoring-dasboard}}.
+The code of \tool is available under an open-source permissive MIT license on Github \footnote{\url{https://github.com/mircealungu/automatic-monitoring-dashboard}}.
 
-The images in this paper are screenshots of the actual deployment of the tool which can be found at {https://zeeguu.unibe.ch/api/dashboard}. For the readers of this paper to be able to see the tool in action, they can login with the username and password: guest, dashboardguest!. 
-\mltp{we should add a guest/guest username password which is allowed to only visualize things, but not modify anything, and not export anything!}
+The images in this paper are screenshots of the actual deployment of the tool which can be found at {https://zeeguu.unibe.ch/api/dashboard}. For the readers of this paper to be able to see the tool in action, they can login with the username and password: guest, guest\_password. 
 
 \section{Related Work}
 
