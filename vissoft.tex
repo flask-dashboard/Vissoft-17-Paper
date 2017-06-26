@@ -107,38 +107,12 @@ However, there is no dedicated solution for monitoring the performance of Flask 
 
 For projects which are done on a budget (e.g. research projects) the first and the second options are often not available due to time and financial constraints. 
 
-To avoid these projects ending up in the third situation, in this paper we present a low-effort, lightweight service monitoring API for Flask and Python web-services.
+To avoid these projects ending up in the third situation, in this paper we present a low-effort, lightweight service monitoring API for Flask-based Python web services.
 
-To start using our Python library for service visualization, one needs one line of code to connect their Flask application object with the dashboard and an additional one to import the library:
+\todo{The rest of this paper is structured as follows:\dots}
 
-% dashboard.config.from_file('dashboard.cfg')
-\begin{lstlisting}[caption=Configuring the \tool is straightforward,style=custompython]
+\va{@all: I moved the remaining of this section to the Dashboard section since it makes more sense there}
 
-  import dashboard
-  dashboard.bind(app=flask_app)
-
-\end{lstlisting}
-
-
-%\mltp{a small description of how the dashboard automatically intercepts the calls to the various API calls}
-After binding to the service, \tool will search for all endpoints defined in it. These will be presented to the user, which can select the ones that should be monitored, see figure \ref{fig:sep}. In order to monitor an endpoint, \tool will create a function wrapper for the API function that corresponds to the endpoint. This way, the wrapper will be executed whenever that API call is made. The wrapper contains the code that takes care of monitoring an endpoint.
-
-% \mltp{mention also that the dashboard automatically is available at /dashboard endpoint}
-By default, \tool is available at the \texttt{/dashboard} route of the Flask app. A custom route can also be defined by simply adding one extra line of code:
-
-\begin{lstlisting}[caption=Configuring the \tool with a custom route for it to be accessed on is straightforward, style=custompython]
-
-  dashboard.config.link = `custom-link`
-
-  \end{lstlisting}
-
-% \mltp{a small screenshot of how the dashboard allows one to select the interesting }
-  \begin{figure}[!ht]
-    \centering
-    \includegraphics[width=\linewidth]{selecting_endpoints.png}
-    \caption{All of the endpoints of the Flask app are shown such that a selection can be made for monitoring them}
-    \label{fig:sep}
-  \end{figure}
 
 \section{Case Study}
 
@@ -157,7 +131,41 @@ We have this system for helping learners read texts that they like, and enable t
 
 \section{The \tool}
 
-The \tool as well as the web service that is being monitored in the case study is written in Python using Flask. This makes binding to the web service relatively easy, as well as adding additional routes to the service for interacting with the \tool. There are three main endpoints that are available using this tool:
+The \tool as well as the web service that is being monitored in the case study is written in Python using Flask. This makes binding to the web service relatively easy, as well as adding additional routes to the service for interacting with the \tool.
+
+To start using our Python library for service visualization, one needs one line of code to connect their Flask application object with the \tool and an additional one to import the library:
+
+% dashboard.config.from_file('dashboard.cfg')
+\begin{lstlisting}[caption=Configuring the \tool is straightforward,style=custompython]
+
+import dashboard
+dashboard.bind(app=flask_app)
+
+\end{lstlisting}
+
+% \mltp{a small screenshot of how the dashboard allows one to select the interesting }
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{selecting_endpoints.png}
+	\caption{All of the endpoints of the Flask app are shown such that a selection can be made for monitoring them}
+	\label{fig:sep}
+\end{figure}
+
+
+%\mltp{a small description of how the dashboard automatically intercepts the calls to the various API calls}
+After binding to the service, \tool will search for all endpoints defined in it. These will be presented to the user, which can select the ones that should be monitored, see \Fref{fig:sep}. In order to monitor an endpoint, \tool will create a function wrapper for the API function that corresponds to the endpoint. This way, the wrapper will be executed whenever that API call is made. The wrapper contains the code that takes care of monitoring an endpoint.
+
+% \mltp{mention also that the dashboard automatically is available at /dashboard endpoint}
+By default, \tool is available at the \texttt{/dashboard} route of the Flask app. A custom route can also be defined by simply adding one extra line of code:
+
+\begin{lstlisting}[caption=Configuring the \tool with a custom route for it to be accessed on is straightforward, style=custompython]
+
+dashboard.config.link = 'custom-link'
+
+\end{lstlisting}
+
+There are three main endpoints that are available using \tool:
+\todo{Replace `one' below with the actual endpoint relative URL}
 \begin{enumerate}
   \item one which shows a list of the endpoints of the service that can be monitored
   \item one which contains an overview of the measurements of the selected endpoints
@@ -218,6 +226,8 @@ In the remainder of the article:
 
   \niceseparator
 
+   \todo{Add the time series graph and discuss it before the heatmap? We can then sell the heatmap better}
+
   A second type of {\em utilization} question that an API maintainer can answer by using the \tool regards cyclic patterns of usage during various times of day. 
   % \mlv{can we provide some support for this claim? a reference maybe?}
 
@@ -232,7 +242,7 @@ In the remainder of the article:
     \end{figure}
 
 
-  Figure \ref{fig:dp} shows the users of the Zeeguu API not practicing  languages at night, but otherwise hitting the API around the clock with several hundred hits per hour. 
+  Figure \ref{fig:dp} shows the users of the Zeeguu API not practicing  languages at night, but otherwise hitting the API around the clock with several hundred hits per hour. \va{Mircea: Strictly speaking that's not what the figure shows: there is no practice during the early morning hours, with most of the activity focused around working hours and some light activity during the evening.}
 
 
 
