@@ -5,7 +5,7 @@
 \newcommand{\install}{{\small \texttt{pip install flask\_dashboard}}\xspace}
 \newcommand{\activeUserCount}{two hundred\xspace}
 \newcommand{\code}[1]{\texttt{#1}\xspace}
-\newcommand{\view}[1]{\small {\texttt{#1}}\xspace}
+\newcommand{\perspective}[1]{\small {\texttt{#1}}\xspace}
 
 \usepackage{fourier-orns}
 
@@ -34,10 +34,16 @@
 % Author Comments / Discussion
 
 \definecolor{mlcolor}{RGB}{140, 140, 205}
+\definecolor{vacolor}{RGB}{255, 0, 255}
 
 \newcommand{\ml}[1]{ 
 	{\footnotesize \color{mlcolor}ML: #1}
 	}
+
+\newcommand{\va}[1]{ 
+	{\footnotesize \color{vacolor}VA: #1}
+}
+
 
 \newcommand{\mltp}[1]{\ml{Thijs, Patrick: #1}}
 \newcommand{\mlv}[1]{\ml{Vasilios: #1}}
@@ -48,4 +54,6 @@
 	{\footnotesize \color{todocolor}Todo: #1}
 	}
 
+\newcommand{\Fref}[1]{Fig.~\ref{#1}}
+\newcommand{\Sref}[1]{Sec.~\ref{#1}}
 

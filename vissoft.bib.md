@@ -96,7 +96,7 @@ A Quantitative Analysis of Developer Information Needs in Software Ecosystems
         Year = {2014}
         }
 
-The tool offers the basic information exploration navigation primitives:
+Classical paper talking about basic information visualization strategies:
 
         @inproceedings{Shne99a,
             Address = {College Park, Maryland 20742, U.S.A.},
@@ -105,6 +105,17 @@ The tool offers the basic information exploration navigation primitives:
             Pages = {336-343},
             Title = {The Eyes Have It: A Task by Data Type Taxonomy for Information Visualizations},
             Year = {1996}}
+
+## Useful links
+A quick introduction into Flask
+
+      @misc{ flask:tutorial,
+          author = "Armin Ronacher",
+          title = "Quickstart",
+          year = "2010",
+          howpublished = "\url{http://flask.pocoo.org/docs/0.12/quickstart/#quickstart}",
+          note = "[Online; accessed 25-June-2017]"
+      }
 
 
 
