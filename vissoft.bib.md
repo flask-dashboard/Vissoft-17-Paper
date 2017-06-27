@@ -96,5 +96,17 @@ A Quantitative Analysis of Developer Information Needs in Software Ecosystems
         Year = {2014}
         }
 
+The tool offers the basic information exploration navigation primitives:
+
+        @inproceedings{Shne99a,
+            Address = {College Park, Maryland 20742, U.S.A.},
+            Author = {Ben Shneiderman},
+            Booktitle = {IEEE Visual Languages},
+            Pages = {336-343},
+            Title = {The Eyes Have It: A Task by Data Type Taxonomy for Information Visualizations},
+            Year = {1996}}
+
+
+
 
 
