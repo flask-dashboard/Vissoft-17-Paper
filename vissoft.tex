@@ -10,7 +10,7 @@
 
 \lstdefinestyle{custompython}{
 	belowcaptionskip=1\baselineskip,
-	frame=lr,
+	frame=l,
 	xleftmargin=\parindent,
 	language=Python,
 	basicstyle=\footnotesize\ttfamily,
@@ -138,7 +138,7 @@ To start using our Python library for service visualization solution one needs t
 
   \end{enumerate}
 
-  The core API provides correspondingly three types of functionality: contextual translations, article recommendations, and personalized exercise suggestions. The core API of system is a research project, which sustains at the moment the reading and practice of about one hundred and fifty beta-testers. 
+  The core API provides correspondingly three types of functionality: contextual translations, article recommendations, and personalized exercise suggestions. The core API of system is a research project, which sustains at the moment of writing this article the reading and practice of about \activeUserCount active beta-tester accounts. 
 
   \subsection* {Structure of the Paper}
   The remainder of this paper is structured as follows: In Sections \ref{sec:util}, \ref{sec:perf}, \ref{sec:user} we dedicate a separate section to three types of analysis that \tool supports and present a the way the visualizations support these types of analysis. 
@@ -214,10 +214,10 @@ To start using our Python library for service visualization solution one needs t
 
   To be able to see their improvements in action, the maintainer had to add an extra configuration information to be able to find the `.git' folder from where to retrieve the current version of the deployed application: 
 
-    \begin{lstlisting}
-      [caption=Configuring the \tool with the path to the .git folder enables the generation of evolutionary performance graphs, style=custompython]
+    \begin{lstlisting}[caption=Configuring the \tool with the path to the .git folder enables the generation of evolutionary performance graphs, style=custompython]
 
     dashboard.config.git = 'path/to/git-root/of/app'
+
 
     \end{lstlisting}
 
@@ -243,11 +243,9 @@ To start using our Python library for service visualization solution one needs t
 \section {User Centered Visualization}
 \label{sec:user}
 
-  For service endpoints which run computations in real time as they are called, there might be very different timings based on the different loads that are sent to the endpoint. 
+  For service endpoints which run computations in real time, the operator of a system must understand the endpoint performance on a per-user basis, especially for situations where the system response time is a function of some individual user load\footnote{E.g. in GMail some users have two emails while other have twenty thousand and this induces different response times for different users}
 
-  In our cases study, one of the slowest endpoints, and one with the higest variability is \epFeedItems: it retrieves a list of recommended articles for a given user. However, since a user can be subscribed to anything from one to three dozen article sources, and since the computation of the difficulty is personalized and it is slow, the variability in time among users is likely to be very large. 
-
-  \tool provides a way of grouping information on a per user basis. However, to do this, the developer must specify the way in which a given API call can be associated with a given user. There are multiple ways, the simplest takes again advantage of the strengths of the Flask framework which offers a global request object which contains session information: 
+  \tool provides a way of grouping information on a per user basis. However, to do this, the developer must specify the way in which a given API call can be associated with a given user. There are multiple ways, the simplest utilizes again the common expectations of Flask applications which offers a global \code{request} object which contains a \code{session} object which encapsulates information: 
 
   \begin{lstlisting}[float,caption=TBA,style=custompython]
     
@@ -264,7 +262,10 @@ To start using our Python library for service visualization solution one needs t
   \end{lstlisting}
 
 
-  Sometimes, grouping the service calls per endpoint it is not sufficient. Figure \ref{fig:tpu} shows some of the results of calling the \epFeedItems endpoint for various users. 
+  In the Zeeguu case study, one of the slowest endpoints, and one with the highest variability is \epFeedItems: it retrieves a list of recommended articles for a given user. However, since a user can be subscribed to anything from one to three dozen article sources, and since the computation of the difficulty is personalized and it is slow, the variability in time among users is likely to be very large. 
+
+
+  Figure \ref{fig:tpu} shows some of the results of calling the \epFeedItems endpoint for various users. The figure shows that the response times for this endpoint can vary considerably for different users. 
 
   \begin{figure}[h!]
     \centering
@@ -273,23 +274,20 @@ To start using our Python library for service visualization solution one needs t
     \label{fig:tpu}
   \end{figure}
 
+  \niceseparator
 
-  Different users might have different experiences: 
-  - a user has 10K emails one has 10 emails
-  - a user is subscribed to 20 feeds one to 2 feeds
-
-  The system will have different processing times. 
-  It is important for the DevOps-er to be able to understand the difference in performance on a per user basis. 
-
+  The limitation of the previous view is that it does not present the information also on a per version basis. To address this, a different visual perspective entitled \view{Performance per User per Version}
+  Figure \ref{fig:tuv} attempts to present the information 
   If we try to show also per version: 
 
   \begin{figure}[h!]
     \centering
     \includegraphics[width=\linewidth]{time_per_user_per_version}
     \caption{Caption here}
-    \label{fig:figure1}
+    \label{fig:tuv}
   \end{figure}
 
+  For the situations in which the user information is not available, the \tool tracks out of the box information about different IPs. In some cases this might be a sufficiently good approximation of the user diversity and identity.
 
 \section{Discussion}
 
@@ -301,12 +299,19 @@ To start using our Python library for service visualization solution one needs t
 
   \begin{enumerate}
     \item The deployment engineer pulls the latest version of the code from the integration server; this will result in a new commit being pointed at by the HEAD pointer than previously
-    \item The deployment engineer restarts the new version of the service. At this point, the \tool detects that a new HEAD is present in the local code base and consequently starts associating all the new data points with this new commit
+    \item The deployment engineer restarts the new version of the service. At this point, the \tool detects that a new HEAD is present in the local code base and consequently starts associating all the new data points with this new commit\footnote{The \tool detects the current version of the analyzed system the first time it is attached to the application object, and thus, assumes that the Flask application is restarted when a new version is deployed. This is in tune with the current version of Flask, but if the web server will support dynamic updates in the future, this might have to be taken into account}
   \end{enumerate}
 
   The advantage of this approach is the need for minimal configurability. The disadvantage is that it will consider the smallest of the commits\footnote{Even one that modifies a comment} and the shortest lived commits\footnote{A commit which was active only for a half an hour before a new version with a bug fix was deployed}, as a distinct way of grouping the data points. 
 
   Another possible extension point here is supporting other version control systems (e.g. Mercurial). However, this is a straightforward extension.
+
+
+
+  \subsection{User-Awareness }
+
+    User awareness as presented in Section \ref{sec:user} is useful, but the scalability of the approach must be taken into consideration. In our case study we had about several hundreds users (of which about \activeUserCount were active during the ) 
+
 
 
   \subsection{Tool and Source Code Availability}
