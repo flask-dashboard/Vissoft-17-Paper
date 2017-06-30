@@ -95,7 +95,7 @@ For projects which are done on a budget (e.g. research projects, startups) the f
 
 To avoid projects ending up in the third situation, that of living without analytics, in this paper we present \tool~ --- a low-effort service monitoring library for Flask-based Python web services that is easy to integrate and provides multiple perspectives on performance and utilization.
 
-As a case study, on which we will illustrate our solution, we are going to use an open source API which was in the third situation presented above for multiple months.
+As a case study, on which we will illustrate our solution, we are going to use an open source API which was in the third situation presented above for more than one year:
 
 % In the next section, we will present a case study of an open source research API which was for a long time in the third situation presented above -- deployed without analytics insight.
 
@@ -127,7 +127,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
 
 \section{The \tool}
-  In this paper we are introducint \tool, a drop-in Python library that allows developers to monitor their Flask-based Python web applications with minimal effort.
+  In this paper we are introducing \tool, a drop-in Python library that allows developers to monitor their Flask-based Python web applications with minimal effort.
 
   The \tool as well as the web application that is being monitored in the case study is written in Python using Flask. This makes binding to the web services of the application relatively easy, as well as adding additional routes to the service for interacting with the \tool.
 
@@ -194,7 +194,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
   \begin{figure}[!ht]
     \centering
-    \includegraphics[width=\linewidth]{endpoint_performance.png}
+    \includegraphics[width=0.9\linewidth]{endpoint_performance.png}
     \caption{The response time (in ms) per monitored endpoint view allows for identifying performance variability and balancing issues}
     \label{fig:ep}
   \end{figure}
@@ -240,7 +240,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
   In order to address this, but without degrading overall performance, the \tool tracks for every endpoint a running average value. When it detects that a given request is an outlier with respect to this past average running value, it triggers the {\em outlier data collection routine} which stores all the previously listed extra information about the current execution environment. 
 
-
+\newpage
 \section {User Experience}
 \label{sec:user}
 
@@ -274,6 +274,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
     \label{fig:tpu}
   \end{figure}
 
+  \newpage
   \niceseparator
 
   The limitation of the previous view is that it does not present the information also on a per version basis. To address this, a different visual perspective entitled \perspective{Evolving per-User Performance} can be defined. Figure \ref{fig:tuv} attempts to present the information that would be required in such an perspective. 
@@ -281,7 +282,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
   \begin{figure}[!ht]
     \centering
     \includegraphics[width=\linewidth]{time_per_user_per_version}
-    \caption{Caption here}
+    \caption{This perspective shows that the evolution of response times for individual users (horizontal lines) across versions (the x-axis)}
     \label{fig:tuv}
   \end{figure}
 
@@ -291,7 +292,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
 \section{Discussion}
 
-  \subsection{Integrating with Different Deployment Strategies in Order to Automatically Monitor System Evolution}
+  \subsection{Automatically Monitoring System Evolution}
 
   The main goal of the \tool design was to allow analytics to be collected and insight to be gained by making the smallest possible changes to the running API. %To allow the collection of evolutionary information 
 %
@@ -311,14 +312,12 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
   \subsection{User-Awareness }
 
-    User awareness as presented in Section \ref{sec:user} is useful, but the scalability of the approach must be taken into consideration. In our case study we had about several hundreds users (of which about \activeUserCount were active during the course of the study).
-    \va{Mircea: I feel there's something missing from the paragraph above --- anything you want to add?} 
+    User awareness as presented in Section \ref{sec:user} is useful, but the scalability of the approach must be taken into consideration. In our case study we had about several hundreds users (of which about \activeUserCount were active during the course of the study). However, different perspectives might be required for APIs with millions of users.
 
 
-  \subsection{Utilization}
+  \subsection{Other Possible Groupings}
 
-    There are other perspectives on service utilization that could be useful, that we did not list in this paper. For example, if the service is using OAuth, then together with every request, in the header of the request there is information about the application which is sending a request. But providing statistics about 
-    \va{Mircea: incomplete part above!}
+    There are other groupings of service utilization and performance that could be important to the maintainer, that we did not explore in this paper. For example, if the service is using OAuth, then together with every request, in the header of the request there is information about the application which is sending a request. Grouping the information by application that sends the request could be important in such a context. In general, providing a mechanism that would allow very easy specification of groupings (either as code annotations, as normal code, or as configuration options) is an open problem that \tool and any other similar library will have to face.
 
   \subsection{Tool and Source Code Availability}
   \label{sec:install}
@@ -336,7 +335,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
 There is a long tradition of using visualization for gaining insight into software performance. Tools like Jinsight \cite{Pauw02a} and Web Services Navigator \cite{Pauw05} pioneered such an approach for Java and for Web Services that communicate with SOAP messages. Both have an ``omniscient'' view of the services / objects and their interactions. As opposed to them, in our work we present an analytics platform which focuses on monitoring a single Python web service from its own point of view.
 
-Looking from the perspective of service monitoring, our work falls within the server-side run-time monitoring of services area~\cite{ghezzi2007run}. While the presented approach lacks many of the more advanced features of related monitoring solutions like QoS policies drivign the monitoring, it presents nevertheless an easy to use approach that can produce relevant results towards improving the performance of web applications. 
+From the perspective of service monitoring, our work falls within the server-side run-time monitoring of services ~\cite{ghezzi2007run}. While we don't implement the more advanced features of related monitoring solutions like QoS policies driving the monitoring, it presents nevertheless an easy to use approach support improving the performance of web applications. 
 
 % \va{Mircea: Consider removing the rest for space...}
 % An existing monitoring tool is Pingdom \footnote{https://www.pingdom.com/company/why-pingdom}, which monitors the uptime of an existing web-service. This tool works by pinging the websites (up to 60 times) every minute automatically. Thus this creates a lot of overhead and is bound to be noisy since it will also be influenced by the speed of the network connection\footnote{Another problem is that such a tool would }
