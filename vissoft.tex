@@ -16,7 +16,7 @@
 
 \begin{document}
 %
-\title{\tool: A Lightweight Analytics Platform for Visualizing Evolving Python Web Service Utilization and Performance}
+\title{A Lightweight Analytics Platform for Visualizing Evolving Python Web Services}
 % Alternative Titles: The Importance of Visualization in the Performance Monitoring of Python Web Services
 
 
@@ -52,7 +52,9 @@ Email: \{v.andrikopoulos,m.f.lungu\}@rug.nl, \{t.klooster.1,p.p.vogel\}@student.
 \maketitle
 
 \begin{abstract}
-The abstract goes here.
+
+  Tens of thousands of web applications are written in Flask, a Python-based web framework. Despite a rich ecosystem of extensions, there is none that supports the developer in gaining insight into the evolving performance of their service. In this paper, we introduce \tool, a library that addresses this problem. We present the ease with which the library can be integrated in an already existing web application, discuss some of the visualization perspectives that the library provides and point to some future challenges for similar libraries.
+
 \end{abstract}
 
 % no keywords
@@ -65,48 +67,40 @@ The abstract goes here.
 
 %Every system is a distributed system nowadays \cite{cavage2013there}. Indeed a very large number of applications and web applications are nowadays implemented as two-tier architectures with a front-end implemented with web technologies and a service back-end.
 %\ml{I'm not completely happy with this paragraph}
-``There is no getting around it: you are building a distributed system'' argues a paper from half a decade ago \cite{cavage2013there}. Indeed even the simplest student project web application ends up implemented as two-tier architectures with a front-end implemented with web technologies and a service backend usually a REST API.
+{\em There is no getting around it: you are building a distributed system} argues a paper from almost half a decade ago \cite{cavage2013there}. Indeed, since then, even the simplest second-year student project is a web application implemented as two-tier architectures with a front-end implemented in Javascript and HTML 5 and a service backend, usually a REST API.
 
 % \hfill mds
-Many contemporary programming languages are offering libraries, modules, or frameworks that facilitate the development of such architectures. Python is an example of such a language. 
-% \hfill August 26, 2015
-%
-Python is currently one of the most popular programming languages for service implementation on the back-end side of web applications\footnote{Searching for projects written in Python on GitHub returns more than 500K open source projects as results}. At the time of writing this paper\footnote{End of June 2017} Python is the 4th most popular programming language according to the Tiobe Index\footnote{TIOBE programming community index is a measure of popularity of programming languages, created and maintained by the TIOBE Company based in Eindhoven, the Netherlands}. 
+Many contemporary programming languages are offering libraries, modules, or frameworks that facilitate the development of such architectures. Python is such a language, it currently being one of the most popular programming languages for service implementation on the back-end side of web applications\footnote{Searching for projects written in Python on GitHub returns more than 500K open source projects as results}. (At the time of writing this paper\footnote{End of June 2017} Python is the 4th most popular programming language according to the Tiobe Index\footnote{TIOBE programming community index is a measure of popularity of programming languages, created and maintained by the TIOBE Company based in Eindhoven, the Netherlands}).
  
 % possible flask summary
-Flask\footnote{\url{http://flask.pocoo.org/}} is a very popular Python web framework\footnote{More than 25K projects on GitHub (5\% of all Python projects) are implemented with Flask (cf. a GitHub search for ``language:Python Flask'')}. It provides simplicity and flexibility by implementing a bare-minimum web server, and thus advertises as a micro-framework. The Flask tutorial shows how setting up a simple Flask ``Hello World'' web-service requires no more than 5 lines of Python code \cite{ flask:tutorial}.
+Flask\footnote{\url{http://flask.pocoo.org/}} is a very popular Python web framework\footnote{More than 25K projects on GitHub (5\% of all Python projects) are implemented with Flask (cf. a GitHub search for ``language:Python Flask'')}. It provides simplicity and flexibility by implementing a bare-minimum web server, and thus advertises as a micro-framework. The Flask tutorial shows how setting up a simple Flask {\em ``Hello World''} web-service requires no more than 5 lines of Python code \cite{ flask:tutorial}.
 % end of summary
  
-To the best of our knowledge, however, there is no dedicated solution for monitoring the performance of Flask web applications. Thus, every one of those Flask projects faces one of the following options when confronted with the need of gathering insight into the runtime behavior of their implemented services: 
+Despite their populartity, to the best of our knowledge, there is no simple solution for monitoring the performance of Flask web applications. Thus, every one of the developers of these projects faces one of the following options when confronted with the need of gathering insight into the runtime behavior of their implemented services: 
 
   \begin{enumerate}
 
-    \item Use a commercial monitoring setup that usually requires setting up a different server that treats the subject API as a black-box (see \Sref{sec:related}). 
+    \item Use a commercial monitoring setup, but this usually requires setting up a different server that treats the subject API as a black-box (see \Sref{sec:related}). 
 
-    \item Implement their own analytics toolchain potentially requiring multiple person-months. 
+    \item Implement their own analytics code, potentially requiring multiple person-months of work, and having to reinvent basic visualization and interaction strategies. 
 
-    \item Live without analytics insight into their services\footnote{This is very real option: and is exactly what happened to the API that will be presented in this case study for many months.}.
+    \item Live without analytics insight into their services.
 
   \end{enumerate}
 
 %\todo{For the first point in the list, we can also argue that analytics solutions like Google Analytics can be used, but they have no notion of versioning/integration with the development life cycle. Feel free to cite \cite{papazoglou2011managing} for service evolution purposes}
 
-For projects which are done on a budget (e.g. research projects, startups) the first and the second options are often not available due to time and financial constraints. Furthermore, while adopting 3rd-party analytics solutions like e.g.~Google Analytics might be an option, a critical insight into the evolution of the exposed services of the web application, see for example~\cite{papazoglou2011managing}, is missing due to the fact such solutions have no notion of versioning/integration with the development life cycle.
+For projects which are done on a budget (e.g. research projects, startups) the first and the second options are often not available due to time and financial constraints\footnote{This is very real option: and is exactly what happened to the API that will be presented in this case study for many months.}. Furthermore, while adopting 3rd-party analytics solutions like e.g.~Google Analytics might be an option, a critical insight into the evolution of the exposed services of the web application, see for example~\cite{papazoglou2011managing}, is missing due to the fact such solutions have no notion of versioning/integration with the development life cycle.
 
-To avoid such projects ending up in the third situation, in this paper we present a low-effort, lightweight service monitoring API for Flask-based Python web services that is easy to integrate and provides multiple perspectives on the performance and utilization of the subject API.
-%\va{@all: I moved the remaining of this section to the Dashboard section since it makes more sense there} \ml{cool!}
+To avoid such projects ending up in the third situation, that of living without analytics, in this paper we present \tool -- a low-effort, lightweight service monitoring API for Flask-based Python web services that is easy to integrate and provides multiple perspectives on the performance and utilization of the subject API.
 
-\va{Mircea: consider removing the subsection header completely to save space}
-  \subsection* {Structure of the Paper}
-    
-    \ml{to update!}
-    The remainder of this paper is structured as follows: In Sections \ref{sec:util}, \ref{sec:perf}, \ref{sec:user} we dedicate a separate section to three types of analysis that \tool supports and present a the way the visualizations support these types of analysis. 
+As a case study, on which we will illustrate our solution, we are going to use an open source API.
 
 
 
 \section{Case Study}
 
-  
+
   \zee\footnote{\url{https://www.zeeguu.unibe.ch/}} is a platform and an ecosystem of applications for accelerating vocabulary acquisition in a foreign language \cite{Lungu16}. 
 %
   The architecture of the ecosystem has at its core an API implemented with Flask and Python and a series of satellite applications that together offer three main intertwined features for the learner:
