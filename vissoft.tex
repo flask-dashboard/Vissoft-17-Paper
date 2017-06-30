@@ -292,38 +292,42 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
   \subsection{Integrating with Different Deployment Strategies in Order to Automatically Monitor System Evolution}
 
-  The main goal of the \tool design was to allow analytics to be collected and insight to be gleaned by making the smallest possible changes to the running API. To allow the collection of evolutionary information 
-
-  This technique assumes that the web server code which is the target of the monitoring is deployed using \git in the following way: 
+  The main goal of the \tool design was to allow analytics to be collected and insight to be gained by making the smallest possible changes to the running API. %To allow the collection of evolutionary information 
+%
+  This technique assumes that the web application code which is the target of the monitoring is deployed using \git in the following way: 
 
   \begin{enumerate}
-    \item The deployment engineer pulls the latest version of the code from the integration server; this will result in a new commit being pointed at by the HEAD pointer than previously
-    \item The deployment engineer restarts the new version of the service. At this point, the \tool detects that a new HEAD is present in the local code base and consequently starts associating all the new data points with this new commit\footnote{The \tool detects the current version of the analyzed system the first time it is attached to the application object, and thus, assumes that the Flask application is restarted when a new version is deployed. This is in tune with the current version of Flask, but if the web server will support dynamic updates in the future, this might have to be taken into account}
+    \item The deployment engineer pulls the latest version of the code from the integration server; this will result in a new commit being pointed at by the HEAD pointer. %than previously
+    \item The deployment engineer restarts the new version of the service. At this point, the \tool detects that a new HEAD is present in the local code base and consequently starts associating all the new data points with this new commit\footnote{The \tool detects the current version of the analyzed system the first time it is attached to the application object, and thus, assumes that the Flask application is restarted when a new version is deployed. This is in tune with the current version of Flask, but if the web server will support dynamic updates in the future, this might have to be taken into account}.
   \end{enumerate}
 
-  The advantage of this approach is the need for minimal configurability. The disadvantage is that it will consider the smallest of the commits\footnote{Even one that modifies a comment} and the shortest lived commits\footnote{A commit which was active only for a half an hour before a new version with a bug fix was deployed}, as a distinct way of grouping the data points. 
-
-  Another possible extension point here is supporting other version control systems (e.g. Mercurial). However, this is a straightforward extension.
+  The advantage of this approach is the need for minimal configuration effort, as discussed in the presentation of the tool. The disadvantage is that it will consider on equal ground the smallest of commits, even one that modifies a comment, and the shortest lived of commits, e.g.~a commit which was active only for a half an hour before a new version with a bug fix was deployed, with major and minor releases of the software. %as a distinct way of grouping the data points. 
+  A mechanism to control which versions are important for monitoring purposes is therefore required to be added.
+%
+  A further possible extension point here is supporting other version control systems (e.g. Mercurial). However, this is a straightforward extension.
 
 
 
   \subsection{User-Awareness }
 
-    User awareness as presented in Section \ref{sec:user} is useful, but the scalability of the approach must be taken into consideration. In our case study we had about several hundreds users (of which about \activeUserCount were active during the ) 
+    User awareness as presented in Section \ref{sec:user} is useful, but the scalability of the approach must be taken into consideration. In our case study we had about several hundreds users (of which about \activeUserCount were active during the course of the study).
+    \va{Mircea: I feel there's something missing from the paragraph above --- anything you want to add?} 
 
 
   \subsection{Utilization}
 
     There are other perspectives on service utilization that could be useful, that we did not list in this paper. For example, if the service is using OAuth, then together with every request, in the header of the request there is information about the application which is sending a request. But providing statistics about 
+    \va{Mircea: incomplete part above!}
 
   \subsection{Tool and Source Code Availability}
   \label{sec:install}
 
+	\todo{FIX THE TODO IN THE pypi.org URL}
     \tool is implemented for Python 3.6 and is available on the Python Package Index repository\footnote{\url{http://pypi.org/TODO}} from where it can be installed on any system that has Python installed by running \install from the command line. 
 
-    The code of \tool is published under a permissive MIT license and is available on GitHub.\footnote{\url{https://github.com/mircealungu/automatic-monitoring-dasboard}}
+    The source code of the \tool is published under a permissive MIT license and is available on GitHub\footnote{\url{https://github.com/mircealungu/automatic-monitoring-dasboard}}.
 
-    The images in this paper are screenshots of the interactive visualizations from the deployment of \tool in the context of the Zeeguu core API. The actual deployment can be consulted online by the reviewers and readers of this article\footnote{\url{https://zeeguu.unibe.ch/api/dashboard}. Username: {\em guest}, password: {\em vissoft}}.
+    The images in this paper are screenshots of the interactive visualizations from the deployment of \tool in the context of the Zeeguu core API. The actual deployment can be consulted online by the reviewers and readers of this article\footnote{\url{https://zeeguu.unibe.ch/api/dashboard}; username: {\em guest}, password: {\em vissoft}}.
 
 
 \section{Related Work}
@@ -331,8 +335,9 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
 There is a long tradition of using visualization for gaining insight into software performance. Tools like Jinsight \cite{Pauw02a} and Web Services Navigator \cite{Pauw05} pioneered such an approach for Java and for Web Services that communicate with SOAP messages. Both have an ``omniscient'' view of the services / objects and their interactions. As opposed to them, in our work we present an analytics platform which focuses on monitoring a single Python web service from its own point of view.
 
-Run-time monitoring of services \cite{ghezzi2007run}
+Looking from the perspective of service monitoring, our work falls within the server-side run-time monitoring of services area~\cite{ghezzi2007run}. While the presented approach lacks many of the more advanced features of related monitoring solutions like QoS policies drivign the monitoring, it presents nevertheless an easy to use approach that can produce relevant results towards improving the performance of web applications. 
 
+\va{Mircea: Consider removing the rest for space...}
 An existing monitoring tool is Pingdom \footnote{https://www.pingdom.com/company/why-pingdom}, which monitors the uptime of an existing web-service. This tool works by pinging the websites (up to 60 times) every minute automatically. Thus this creates a lot of overhead and is bound to be noisy since it will also be influenced by the speed of the network connection\footnote{Another problem is that such a tool would }
 
 \todo{Runscope? Others?}
@@ -340,19 +345,14 @@ An existing monitoring tool is Pingdom \footnote{https://www.pingdom.com/company
 
 \section{Conclusion and Future Work}
 
-In this paper we have shown that it is possible to build a lightweight monitoring solution which provides plenty of feedback to a user with very little effort. 
+In this paper we have shown that it is possible to build a lightweight monitoring solution which provides plenty of feedback to a user with very little effort. The user group that we are aiming for with this work is application developers using Flask and Python to build web applications with limited or no budget for implementing their own monitoring solutions. The emphasis is in allowing such users to gain insight into how the performance of the service evolves together with the application itself.
 
-In the future we plan to investigate ...
-\ml{TODO}
-
+In the future, we plan to:
 \begin{itemize}
-  \item usability study with more systems: to improve the visualizations, discover other needs, wean out the less useful visualizations; we plan to announce it in the community 
-  \item supporting multiple deployments of the same applications across multiple nodes (e.g. for the situations where the application is deployed behind a load balancer)
-  \item integration with testing as a complementary source of performance evolution
-
+  \item perform a usability study with more systems, with the goal to improve the visualizations, discover other needs, wean out the less useful visualizations; in order to get access to as many systems as possible we plan to announce the \tool to the community;
+  \item supporting multiple deployments of the same applications across multiple nodes (e.g. for the situations where the application is deployed together with a load balancer);
+  \item integrate \tool with unit testing as a complementary source of performance evolution.
 \end{itemize}
-
-
 
 % references section
 
