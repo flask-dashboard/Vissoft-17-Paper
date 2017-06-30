@@ -43,8 +43,7 @@
 \author{
 \IEEEauthorblockN{Patrick Vogel, Thijs Klooster, Vasilios Andrikopoulos, Mircea Lungu}\\
 Johann Bernoulli Institute for Mathematics and Computer Science\\
-University of Groningen\\
-Groningen, the Netherlands\\
+University of Groningen, Netherland\\
 Email: \{t.klooster.1,p.p.vogel\}@student.rug.nl, \{v.andrikopoulos,m.f.lungu\}@rug.nl 
 }
 
@@ -157,7 +156,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
     % \mltp{a small screenshot of how the dashboard allows one to select the interesting }
     \begin{figure}[h!]
       \centering
-      \includegraphics[width=0.9\linewidth]{selecting_endpoints.png}
+      \includegraphics[width=0.8\linewidth]{selecting_endpoints.png}
       \caption{All of the endpoints of the Zeeguu app are shown such that a selection can be made for monitoring them}
       \label{fig:sep}
     \end{figure}
@@ -194,19 +193,17 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
   \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.9\linewidth]{endpoint_performance.png}
+    \includegraphics[width=0.9\linewidth]{endpoint_performance_}
     \caption{The response time (in ms) per monitored endpoint view allows for identifying performance variability and balancing issues}
     \label{fig:ep}
   \end{figure}
 
-  After investigating this view it became clear to the maintainer that three of the endpoints had very large variation in performance. One of the three was the most critical for the application and consequently was optimized first: the \epTranslations endpoint is part of a real-time interaction with the user and it having such variable performance was a usability problem for the users of the reader applications in the Zeeguu platform that depend on it. 
-
-  % most important endpoints that they decided to improve the performance of is the second from the top in Figure \ref{fig:ep}: the endpoint that returns translations. This is particularily critical since it is part of a live interaction loop. 
+  After investigating this view it became clear to the maintainer that three of the endpoints had very large variation in performance.   The most critical for the application and consequently the one optimized first was the \epTranslations endpoint which was part of an interactive loop in the reader applications that relied on the Zeeguu API. 
 
 
   \niceseparator
 
-  To be able to see their improvements in action, the maintainer had to add an extra configuration information to be able to find the git\footnote{\url{https://git-scm.com/}} folder from where to retrieve the current version of the deployed application: 
+  However, with the current configuration of the tool, it would be impossible for the maintainer to see the improvements resulting from the optimization. One way to do this is to add an extra line of configuration to \tool find the git\footnote{\url{https://git-scm.com/}} folder of the deployed service: 
 
 %  \begin{lstlisting}[caption=Configuring the \tool with the path to the .git folder enables the generation of evolutionary performance graphs, style=custompython]
 %
@@ -221,12 +218,12 @@ As a case study, on which we will illustrate our solution, we are going to use a
     
   \end{lstlisting}  
  
-  After redeploying the API, the dashboard can now automatically detect the current version of the project, and can group measurements by version. \tool can now generate the view in \Fref{fig:tee} where the performance of a given endpoint is tallied by version.
-  Alternatively, the maintainer could add version identifiers manually for the web application through a similar configuration.
+  With this extra configuration, the dashboard can now automatically detect the current version of the project, and group measurements by version. \tool can now generate the view in \Fref{fig:tee} where the performance of a given endpoint is tallied by version\footnote{Alternatively, the maintainer can add version identifiers manually for the web application through a configuration file if the system does not use git.}
+  
   
     \begin{figure}[h!]
       \centering
-      \includegraphics[width=\linewidth]{translation_endpoint_evolution.png}
+      \includegraphics[width=\linewidth]{translation_endpoint_evolution_}
       \caption{Visualizing The Performance Evolution of the \epTranslations endpoint}
       \label{fig:tee}
     \end{figure}
@@ -236,7 +233,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
   \niceseparator
 
-  The \tool also collects {\bf extra information about such outliers}: Python stack trace, CPU load, request parameters, etc. in order to allow the maintainer to investigate the causes of these exceptionally slow response times. 
+  The \tool collects {\bf extra information about such outliers}: Python stack trace, CPU load, request parameters, etc. in order to allow the maintainer to investigate the causes of these exceptionally slow response times. 
 
   In order to address this, but without degrading overall performance, the \tool tracks for every endpoint a running average value. When it detects that a given request is an outlier with respect to this past average running value, it triggers the {\em outlier data collection routine} which stores all the previously listed extra information about the current execution environment. 
 

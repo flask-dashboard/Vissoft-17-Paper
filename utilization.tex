@@ -5,21 +5,21 @@
 
   The most fundamental insight that a service maintainer needs regards service utilization. %\vspace{0.5cm}
 
-  Figure \ref{fig:aeu} shows a first perspective on endpoint utilization that \tool provides: a stacked bar chart of the number of hits to various endpoints grouped by day. Figure~\ref{fig:aeu} in particular shows that at its peak the API has about 2500 hits per day. 
+  Figure \ref{fig:aeu} shows a first perspective on endpoint utilization that \tool provides: a stacked bar chart of the number of hits to various endpoints grouped by day. Figure~\ref{fig:aeu} in particular shows that at its peak the API has about 12.000 hits per day. 
   The way users interact with the platform can also be inferred since the endpoints are indicators of different activity types, e.g.: 
 
   \begin{enumerate}
 
-    \item {\color{myblue}\epTranslations} is an indicator of the amount of foreign language reading the users are doing, and 
+    \item \epTranslations is an indicator of the amount of foreign language reading the users are doing, and 
 
-    \item {\color{myviolet} \epOutcome} is an indicator of the amount of foreign vocabulary practice the users are doing.
+    \item {\color{mygreen} \epOutcome} is an indicator of the amount of foreign vocabulary practice the users are doing.
 
   \end{enumerate}
 
 
   \begin{figure}[!ht]
     \centering
-    \includegraphics[width=\linewidth]{all_endpoints_usage.png}
+    \includegraphics[width=\linewidth]{number_of_requests_}
     \caption{The number of requests per endpoint per day view shows the overall utilization of the monitored application}
     \label{fig:aeu}
   \end{figure}
@@ -38,11 +38,11 @@
 
     \begin{figure}[!ht]
       \centering
-      \includegraphics[width=\linewidth]{daily_patterns}
+      \includegraphics[width=0.8\linewidth]{daily_patterns_}
       \caption{Usage patterns become easy to spot in the requests per hour heatmap}
       \label{fig:dp}
     \end{figure}
 
 
-  Figure \ref{fig:dp} shows the API not being used during the early morning hours, with most of the activity focused around working hours and some light activity during the evening. This is consistent with the fact that the current users are all in the central European timezone. 
+  Figure \ref{fig:dp} shows the API not being used during the early morning hours, with most of the activity focused around working hours and some light activity during the evening. This is consistent with the fact that the current users are all in the central European timezone. Also, the figure shows that the spike in utilization that was visible also in the previous graph happended in on afternoon/evening.
 

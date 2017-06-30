@@ -26,8 +26,8 @@
 
 \usepackage{fourier-orns}
 
-\definecolor{myblue}{RGB}{120, 131, 205}
-\definecolor{myviolet}{RGB}{187, 101, 202}
+\definecolor{myred}{RGB}{230, 20, 70}
+\definecolor{mygreen}{RGB}{60, 180, 75}
 
 
 \newcommand{\niceseparator}
@@ -43,7 +43,7 @@
 %\newcommand{\epDecoration}[1]{{\small {\bf #1}}\xspace}
 \newcommand{\epDecoration}[1]{\code{#1}}
 
-\newcommand{\epTranslations}{\epDecoration{api.get\_possible\_translations}}
+\newcommand{\epTranslations}{{\color{myred} \epDecoration{api.get\_possible\_translations}}\xspace}
 \newcommand{\epOutcome}{\epDecoration{api.report\_exercise\_outcome}}
 \newcommand{\epFeedItems}{\epDecoration{api.get\_article\_difficulties}}
 
