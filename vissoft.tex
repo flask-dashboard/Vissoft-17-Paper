@@ -72,10 +72,9 @@ When it comes to implementing the backend, Python is currently one of the most p
 
 
 % possible flask summary
-Flask is a Python micro-framework. It provides simplicity and flexibility by implementing a bare-minimum. Thus, it is up to the developer to extend the application to fulfill the needs. The Flask tutorial shows how setting up a simple Flask ``Hello World'' web-service requires no more than 5 lines of Python code \cite{ flask:tutorial}.
+Flask is a very popular Python web framework\footnote{More than 25K projects on GitHub (5\% of all Python projects) are implemented with Flask (cf. a GitHub search for ``language:Python Flask'')}. It provides simplicity and flexibility by implementing a bare-minimum web server, and thus advertises as a micro-framework. The Flask tutorial shows how setting up a simple Flask ``Hello World'' web-service requires no more than 5 lines of Python code \cite{ flask:tutorial}.
 % end of summary
 
-Flask is very popular. A search on GitHub with the keyword ``language:Python Flask'' we obtain a listing of 25K projects, that is 5\% of all the Python projects. 
 % Flask -- advertised as a {\em micro-framework} -- is a lightweight alternative to web site and service development. 
 
 
@@ -310,6 +309,9 @@ dashboard.config.git = 'path/to/.git'
     User awareness as presented in Section \ref{sec:user} is useful, but the scalability of the approach must be taken into consideration. In our case study we had about several hundreds users (of which about \activeUserCount were active during the ) 
 
 
+  \subsection{Utilization}
+
+    There are other perspectives on service utilization that could be useful, that we did not list in this paper. For example, if the service is using OAuth, then together with every request, in the header of the request there is information about the application which is sending a request. But providing statistics about 
 
   \subsection{Tool and Source Code Availability}
   \label{sec:install}
