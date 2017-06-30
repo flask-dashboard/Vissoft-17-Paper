@@ -66,14 +66,14 @@ Email: \{t.klooster.1,p.p.vogel\}@student.rug.nl, \{v.andrikopoulos,m.f.lungu\}@
 
 %Every system is a distributed system nowadays \cite{cavage2013there}. Indeed a very large number of applications and web applications are nowadays implemented as two-tier architectures with a front-end implemented with web technologies and a service back-end.
 %\ml{I'm not completely happy with this paragraph}
-{\em There is no getting around it: you are building a distributed system} argues a paper from almost half a decade ago \cite{cavage2013there}. Indeed, since then, even the simplest second-year student project is a web application implemented as two-tier architectures with a front-end implemented in Javascript and HTML 5 and a service backend, usually a REST API.
+{\em There is no getting around it: you are building a distributed system} argues a recent article \cite{cavage2013there}. Indeed, even the simplest second-year student project is a web application implemented as two-tier architecture with a Javascript/HTML5 front-end a service backend, usually a REST API.
 
 % \hfill mds
 % Many contemporary programming languages are offering libraries, modules, or frameworks that facilitate the development of such architectures. 
-Python is one of the most popular programming language choices for implementing the back-end of web applications\footnote{Searching for projects written in Python on GitHub returns more than 500K open source projects as results}. (At the time of writing this paper\footnote{End of June 2017} Python is the 4th most popular programming language according to the Tiobe Index\footnote{TIOBE programming community index is a measure of popularity of programming languages, created and maintained by the TIOBE Company based in Eindhoven, the Netherlands}).
+Python is one of the most popular programming language choices for implementing the back-end of web applications. GitHub contains more than 500K open source Python projects and the Tiobe Index\footnote{TIOBE programming community index is a measure of popularity of programming languages, created and maintained by the TIOBE Company based in Eindhoven, the Netherlands} ranks Python as the 4th most popular programming language as of June 2016.
  
 % possible flask summary
-Within the Python world, Flask\footnote{\url{http://flask.pocoo.org/}} is a very popular web framework\footnote{More than 25K projects on GitHub (5\% of all Python projects) are implemented with Flask (cf. a GitHub search for ``language:Python Flask'')}. It provides simplicity and flexibility by implementing a bare-minimum web server, and thus advertises as a micro-framework. The Flask tutorial shows how setting up a simple Flask {\em ``Hello World''} web-service requires no more than 5 lines of Python code \cite{ flask:tutorial}.
+Within the Python community, Flask\footnote{\url{http://flask.pocoo.org/}} is a very popular web framework\footnote{More than 25K projects on GitHub (5\% of all Python projects) are implemented with Flask (cf. a GitHub search for ``language:Python Flask'')}. It provides simplicity and flexibility by implementing a bare-minimum web server, and thus advertises as a micro-framework. The Flask tutorial shows how setting up a simple Flask {\em ``Hello World''} web-service requires no more than 5 lines of Python code \cite{ flask:tutorial}.
 % end of summary
  
 Despite their popularity, to the best of our knowledge, there is no simple solution for monitoring the evolving performance of Flask web applications. Thus, every one of the developers of these projects faces one of the following options when confronted with the need of gathering insight into the runtime behavior of their implemented services: 
@@ -91,7 +91,7 @@ Despite their popularity, to the best of our knowledge, there is no simple solut
 
 %\todo{For the first point in the list, we can also argue that analytics solutions like Google Analytics can be used, but they have no notion of versioning/integration with the development life cycle. Feel free to cite \cite{papazoglou2011managing} for service evolution purposes}
 
-For projects which are done on a budget (e.g. research projects, startups) the first and the second options are often not available due to time and financial constraints. Furthermore, even adopting 3rd-party analytics solutions, a critical insight into the evolution of the exposed services of the web application, see for example~\cite{papazoglou2011managing}, is missing due to the fact such solutions have no notion of versioning and no integration with the development life cycle.
+For projects on a budget (e.g. research, startups) the first and the second options are often not available due to time and financial constraints. And even when using 3rd-party analytics solutions, a critical insight into the evolution of the exposed services of the web application, (see for example~\cite{papazoglou2011managing}), is missing because such solutions have no notion of versioning and no integration with the development life cycle.
 
 To avoid projects ending up in the third situation, that of living without analytics, in this paper we present \tool~ --- a low-effort service monitoring library for Flask-based Python web services that is easy to integrate and provides multiple perspectives on performance and utilization.
 
@@ -157,17 +157,18 @@ As a case study, on which we will illustrate our solution, we are going to use a
     % \mltp{a small screenshot of how the dashboard allows one to select the interesting }
     \begin{figure}[h!]
       \centering
-      \includegraphics[width=0.8\linewidth]{selecting_endpoints.png}
+      \includegraphics[width=\linewidth]{selecting_endpoints.png}
       \caption{All of the endpoints of the Zeeguu app are shown such that a selection can be made for monitoring them}
       \label{fig:sep}
     \end{figure}
 
   In order to monitor an endpoint, the \tool creates a function wrapper for the API function that corresponds to the endpoint. This way, the wrapper will be executed whenever that API call is made. The wrapper contains the code that takes care of monitoring an endpoint. Data collected by the wrappers are persisted in a local database.
 
-  There are two main categories of visual perspectives that are available using \tool:
+  There are three main categories of visual perspectives that are available using \tool:
   \begin{enumerate}
-    \item \textit{Overviews} that present information and measurements about all the endpoints of interest, and
-    \item \textit{Detailed information} about the measurements pertaining to a specific endpoint.
+    \item \textit{Service Utilization} that present information and measurements about all the endpoints of interest
+    \item \textit{Endpoint Performance} about the measurements pertaining to a specific endpoint.
+    \item \textit{User Experience} that presents information about the performance of a given endpoint for a given user.
   \end{enumerate}
 
   In the remainder of the paper we present several of these perspectives.\footnote{We recommend obtaining a color version of this paper for better readability}
@@ -194,7 +195,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
   \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.9\linewidth]{endpoint_performance_}
+    \includegraphics[width=0.95\linewidth]{endpoint_performance_}
     \caption{The response time (in ms) per monitored endpoint view allows for identifying performance variability and balancing issues}
     \label{fig:ep}
   \end{figure}
@@ -224,7 +225,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
   
     \begin{figure}[h!]
       \centering
-      \includegraphics[width=0.9\linewidth]{translation_endpoint_evolution_}
+      \includegraphics[width=0.95\linewidth]{translation_endpoint_evolution_}
       \caption{Visualizing The Performance Evolution of the \epTranslations endpoint}
       \label{fig:tee}
     \end{figure}
