@@ -199,7 +199,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
     \label{fig:ep}
   \end{figure}
 
-  From this view it became clear to the maintainer that four of the endpoints had very large variation in performance.   The most critical for the application and consequently the one optimized first was the \epTranslations endpoint which was part of an interactive loop in the reader applications that relied on the Zeeguu API. 
+  From this view it became clear to the maintainer that four of the endpoints had very large variation in performance.   The most critical for the application and consequently the one optimized first was the \epTranslations endpoint which was part of an interactive loop in the reader applications that relied on the Zeeguu API. Moreover, cf. \Fref{fig:aeu} this endpoint is one of the most used in the system.
 
 
   \niceseparator
@@ -242,7 +242,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
 \section {User Experience}
 \label{sec:user}
 
-  For service endpoints which run computations in real time, the maintainer of a system must understand the endpoint performance on a per-user basis, especially for situations where the system response time is a function of some individual user load\footnote{E.g. in GMail some users have two emails while other have twenty thousand and this induces different response times for different users}.
+  For service endpoints which run computations in real time, the maintainer of a system might want to understand the endpoint performance on a per-user basis, especially for situations where the system response time is a function of some individual user load\footnote{E.g. in GMail some users have two emails while other have twenty thousand and this induces different response times for different users}.
 
   The \tool provides a way of grouping information on a per user basis. However, to do this, the developer must specify the way in which a given API call can be associated with a given user. There are multiple ways, the simplest of which utilizes again the common expectations of Flask applications that offers a global \code{request} object which contains a \code{session} object which encapsulates information: 
 
@@ -285,14 +285,14 @@ As a case study, on which we will illustrate our solution, we are going to use a
   \end{figure}
 
   For the situations in which the user information is not available, the \tool also tracks out of the box information about different IPs. In some cases this might be a sufficiently good approximation of the user diversity and identity. 
-  
+  %
   In the interest of space limitations we are not showing this, and quite a few more visualizations provided by the \tool. The interested reader is referred to \Sref{sec:install} for further information on how to install the tool and how to get access to the data of the case study.
 
 \section{Discussion}
 
   \subsection{Automatically Monitoring System Evolution}
 
-  The main goal of the \tool design was to allow analytics to be collected and insight to be gained by making the smallest possible changes to the running API. %To allow the collection of evolutionary information 
+  The main goal of the \tool design was to allow analytics to be collected and insight to be gained by making the smallest possible changes to a running API. %To allow the collection of evolutionary information 
 %
   This technique assumes that the web application code which is the target of the monitoring is deployed using \git in the following way: 
 
@@ -317,15 +317,6 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
     There are other groupings of service utilization and performance that could be important to the maintainer, that we did not explore in this paper. For example, if the service is using OAuth, then together with every request, in the header of the request there is information about the application which is sending a request. Grouping the information by application that sends the request could be important in such a context. In general, providing a mechanism that would allow very easy specification of groupings (either as code annotations, as normal code, or as configuration options) is an open problem that \tool and any other similar library will have to face.
 
-  \subsection{Tool and Source Code Availability}
-  \label{sec:install}
-
-    The images in this paper are screenshots of the interactive visualizations from the deployment of \tool in the context of the Zeeguu core API. The actual deployment can be consulted online by the reviewers and readers of this article\footnote{\url{https://zeeguu.unibe.ch/api/dashboard}; username: {\em guest}, password: {\em vissoft}}.
-
-    \tool is implemented for Python 3.6 and is available on the Python Package Index repository\footnote{\url{https://pypi.python.org/pypi/flask-monitoring-dashboard/1.8}} from where it can be installed on any system that has Python installed by running \install from the command line. 
-
-    The source code of the \tool is published under a permissive MIT license and is available on GitHub\footnote{\url{https://github.com/mircealungu/automatic-monitoring-dasboard}}.
-
 
 
 \section{Related Work}
@@ -346,6 +337,16 @@ From the perspective of service monitoring, our work falls within the server-sid
 In this paper we have shown that it is possible to build a low-effort monitoring solution which provides plenty of feedback to a user with very little effort. The user group that we are aiming for with this work is application developers using Flask and Python to build web applications with limited or no budget for implementing their own monitoring solutions. The emphasis is in allowing such users to gain insight into how the performance of the service evolves together with the application itself.
 
 In the future, we plan to perform case studies with other sytstems, with the goal of discover other needs and to wean out the less useful visualizations in the \tool. We plan to also extend the tool towards supporting multiple deployments of the same applications across multiple nodes (e.g. for the situations where the application is deployed together with a load balancer). Finally, we plan to integrate \tool with unit testing as a complementary source of performance evolution.
+
+  \section{Tool and Source Code Availability}
+  \label{sec:install}
+
+    The images in this paper are screenshots of the interactive visualizations from the deployment of \tool in the context of the Zeeguu API. The deployment of the system can be consulted online\footnote{\url{https://zeeguu.unibe.ch/api/dashboard}; username: {\em guest}, password: {\em vissoft}}.
+
+    \tool is implemented for Python 3.6 and is available on the Python Package Index repository\footnote{\url{https://pypi.python.org/pypi/flask-monitoring-dashboard/1.8}} from where it can be installed on any system that has Python installed by running \install from the command line. 
+
+    The source code of the \tool is published under a permissive MIT license and is available on GitHub\footnote{\url{https://github.com/mircealungu/automatic-monitoring-dasboard}}.
+
 
 % references section
 
