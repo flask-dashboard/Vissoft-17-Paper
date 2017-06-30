@@ -153,7 +153,7 @@ To avoid such projects ending up in the third situation, in this paper we presen
   % \end{lstlisting}
 
   %\mltp{a small description of how the dashboard automatically intercepts the calls to the various API calls}
-  After binding to the service, the \tool becomes available at the \texttt{/dashboard} route of the Flask application. A custom route can also be defined by the programmer in a configuration file.
+  After binding to the service, the \tool becomes available at the \code{/dashboard} route of the Flask application. A custom route can also be defined by the programmer in a configuration file.
 
   During binding, the \tool will search for all endpoints defined in the target application. These will be presented to the user in the tool web interface, where the user can select the ones that should be monitored, see \Fref{fig:sep}. 
 
@@ -192,7 +192,7 @@ To avoid such projects ending up in the third situation, in this paper we presen
 \section{Endpoint Performance}
 \label{sec:perf}
 
-  The \tool also collects information regarding endpoint performance. The view in Figure \ref{fig:ep} summarizes the response times for various endpoints by using box-and-whisker plots. 
+  The \tool also collects information regarding endpoint performance. The view in \Fref{fig:ep} summarizes the response times for various endpoints by using a box-and-whiskers plot. 
 
   % \ml{Thijs and Patrick... the visualization people will complain when they see that we have different colors for the same endpoint in different graphs. Can we insure that there is consistency in colors? Simplest trick would be to obtain the color by hashing the name of the endpoint... in that case the same endpoint would have the same color in various graphs.}
   % This is supported in the latest version of the dashboard
@@ -204,24 +204,31 @@ To avoid such projects ending up in the third situation, in this paper we presen
     \label{fig:ep}
   \end{figure}
 
-  After investigating this view it became clear to the maintainer that three of the endpoints had very large variation in performance. One of the three was most critical was optimized first: the \epTranslations is part of a live interaction and it having such variable performance was a usability problem for the users of the reader applications. 
+  After investigating this view it became clear to the maintainer that three of the endpoints had very large variation in performance. One of the three was the most critical for the application and consequently was optimized first: the \epTranslations endpoint is part of a real-time interaction with the user and it having such variable performance was a usability problem for the users of the reader applications in the Zeeguu platform that depend on it. 
 
   % most important endpoints that they decided to improve the performance of is the second from the top in Figure \ref{fig:ep}: the endpoint that returns translations. This is particularily critical since it is part of a live interaction loop. 
 
 
   \niceseparator
 
-  To be able to see their improvements in action, the maintainer had to add an extra configuration information to be able to find the `.git' folder from where to retrieve the current version of the deployed application: 
+  To be able to see their improvements in action, the maintainer had to add an extra configuration information to be able to find the git\footnote{\url{https://git-scm.com/}} folder from where to retrieve the current version of the deployed application: 
 
-  \begin{lstlisting}[caption=Configuring the \tool with the path to the .git folder enables the generation of evolutionary performance graphs, style=custompython]
-
-dashboard.config.git = 'path/to/.git'
-
-
-    \end{lstlisting}
-
-  After redeploying the API, the dashboard can now automatically detect the current version of the project, and can group measurements by version. \tool can now generate the view in Figure \ref{fig:tee} where the performance of the give endpoint is tallied by version.
-
+%  \begin{lstlisting}[caption=Configuring the \tool with the path to the .git folder enables the generation of evolutionary performance graphs, style=custompython]
+%
+%dashboard.config.git = 'path/to/.git'
+%
+%
+%    \end{lstlisting}
+    
+    \begin{lstlisting}[style=custompython]
+  
+  dashboard.config.git = 'path/to/.git'
+    
+  \end{lstlisting}  
+ 
+  After redeploying the API, the dashboard can now automatically detect the current version of the project, and can group measurements by version. \tool can now generate the view in \Fref{fig:tee} where the performance of a given endpoint is tallied by version.
+  Alternatively, the maintainer could add version identifiers manually for the web application through a similar configuration.
+  
     \begin{figure}[h!]
       \centering
       \includegraphics[width=\linewidth]{translation_endpoint_evolution.png}
@@ -229,25 +236,25 @@ dashboard.config.git = 'path/to/.git'
       \label{fig:tee}
     \end{figure}
 
-  This way the maintainer could confirm that the performance of the translation endpoint improved: in the latest version (bottom-most box plot in Figure \ref{fig:tee}) the entire box plot moved to the left and there are fewer outliers.
+  This way the maintainer could confirm that the performance of the translation endpoint improved: in the latest version (bottom-most box plot in \Fref{fig:tee}) the entire box plot moved to the left and there are fewer outliers.
 
 
   \niceseparator
 
-  The \tool also collects {\bf extra information about outliers}: Python stack trace, CPU load, request parameters, etc. in order to allow the maintainer to investigate the causes of these exceptionally slow response times. 
+  The \tool also collects {\bf extra information about such outliers}: Python stack trace, CPU load, request parameters, etc. in order to allow the maintainer to investigate the causes of these exceptionally slow response times. 
 
-  In order to address this, but not degrade the usual performance the \tool tracks for every endpoint a running average value. When it detects that a given request is an outlier with respect to this past average running value, it triggers the {\em outlier data collection routine} which stores all the previously listed extra information about the current execution environment. 
+  In order to address this, but without degrading overall performance, the \tool tracks for every endpoint a running average value. When it detects that a given request is an outlier with respect to this past average running value, it triggers the {\em outlier data collection routine} which stores all the previously listed extra information about the current execution environment. 
 
 
 \section {User Experience}
 \label{sec:user}
 
-  For service endpoints which run computations in real time, the operator of a system must understand the endpoint performance on a per-user basis, especially for situations where the system response time is a function of some individual user load\footnote{E.g. in GMail some users have two emails while other have twenty thousand and this induces different response times for different users}
+  For service endpoints which run computations in real time, the maintainer of a system must understand the endpoint performance on a per-user basis, especially for situations where the system response time is a function of some individual user load\footnote{E.g. in GMail some users have two emails while other have twenty thousand and this induces different response times for different users}.
+%
+  The \tool provides a way of grouping information on a per user basis. However, to do this, the developer must specify the way in which a given API call can be associated with a given user. There are multiple ways, the simplest of which utilizes again the common expectations of Flask applications that offers a global \code{request} object which contains a \code{session} object which encapsulates information: 
 
-  \tool provides a way of grouping information on a per user basis. However, to do this, the developer must specify the way in which a given API call can be associated with a given user. There are multiple ways, the simplest utilizes again the common expectations of Flask applications which offers a global \code{request} object which contains a \code{session} object which encapsulates information: 
-
-  \begin{lstlisting}[float,caption=Simply define a custom app-specific function for user retrieval and pass it to the \tool to group information by user,style=custompython]
-    
+  %\begin{lstlisting}[float,caption=Simply define a custom app-specific function for user retrieval and pass it to the \tool to group information by user,style=custompython]
+  \begin{lstlisting}[style=custompython]  
     # app specific way of extracting the user
     # from a flask request object    
     def get_user_id(request):
@@ -260,7 +267,7 @@ dashboard.config.git = 'path/to/.git'
 
   \end{lstlisting}
 
-  In the Zeeguu case study, one of the slowest endpoints, and one with the highest variability is \epFeedItems: it retrieves a list of recommended articles for a given user. However, since a user can be subscribed to anything from one to three dozen article sources, and since the computation of the difficulty is personalized and it is slow, the variability in time among users is likely to be very large. 
+  In the Zeeguu case study, one of the slowest endpoints, and one with the highest variability as shown in \Fref{fig:ep} is \epFeedItems: it retrieves a list of recommended articles for a given user. However, since a user can be subscribed to anything from one to three dozen article sources, and since the computation of the difficulty is personalized and it is slow, the variability in time among users is likely to be very large. 
 
 
   Figure \ref{fig:tpu} shows some of the results of calling the \epFeedItems endpoint for various users. The figure shows that the response times for this endpoint can vary considerably for different users. 
@@ -274,7 +281,7 @@ dashboard.config.git = 'path/to/.git'
 
   \niceseparator
 
-  The limitation of the previous view is that it does not present the information also on a per version basis. To address this, a different visual perspective entitled \perspective{Evolving per-User Performance} can be defined. Figure \ref{fig:tuv} attempts to present the information that would be required in such an perspective: 
+  The limitation of the previous view is that it does not present the information also on a per version basis. To address this, a different visual perspective entitled \perspective{Evolving per-User Performance} can be defined. Figure \ref{fig:tuv} attempts to present the information that would be required in such an perspective. 
 
   \begin{figure}[!ht]
     \centering
@@ -283,7 +290,9 @@ dashboard.config.git = 'path/to/.git'
     \label{fig:tuv}
   \end{figure}
 
-  For the situations in which the user information is not available, the \tool tracks out of the box information about different IPs. In some cases this might be a sufficiently good approximation of the user diversity and identity.
+  For the situations in which the user information is not available, the \tool also tracks out of the box information about different IPs. In some cases this might be a sufficiently good approximation of the user diversity and identity. 
+  
+  In the interest of space limitations we are not showing this, and quite a few more visualizations provided by the \tool. The interested reader is referred to \Sref{sec:install} for further information on how to install the tool and how to get access to the data of the case study.
 
 \section{Discussion}
 

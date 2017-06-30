@@ -3,16 +3,16 @@
 \section{Service Utilization}
 \label{sec:util}
 
-  The most fundamental insight that a service maintainer needs regards service utilization. \vspace{0.5cm}
+  The most fundamental insight that a service maintainer needs regards service utilization. %\vspace{0.5cm}
 
-  Figure \ref{fig:aeu} shows a first perspective on endpoint utilization that \tool provides: a stacked bar chart of the number of hits to various endpoints grouped by day  shows that at its peak the API has about 2500 hits per day. 
+  Figure \ref{fig:aeu} shows a first perspective on endpoint utilization that \tool provides: a stacked bar chart of the number of hits to various endpoints grouped by day. Figure~\ref{fig:aeu} in particular shows that at its peak the API has about 2500 hits per day. 
   The way users interact with the platform can also be inferred since the endpoints are indicators of different activity types, e.g.: 
 
   \begin{enumerate}
 
-    \item {\color{myblue}\epTranslations} is an indicator of the amount of foreign language reading the users are doing
+    \item {\color{myblue}\epTranslations} is an indicator of the amount of foreign language reading the users are doing, and 
 
-    \item {\color{myviolet} \epOutcome} is an indicator of the amount of foreign vocabulary practice the users are doing
+    \item {\color{myviolet} \epOutcome} is an indicator of the amount of foreign vocabulary practice the users are doing.
 
   \end{enumerate}
 
@@ -24,14 +24,14 @@
     \label{fig:aeu}
   \end{figure}
 
-  Besides showing the overall utilization, this endpoint provides to the maintainer with information relevant for decisions regarding endpoint deprecation -- one of the most elementary ways of {\em understanding the needs of the downstream}\cite{Haen14a}. In our case study, the maintainer realized that several endpoints which they thought were not being used, contrary to their expectations, were actually being used.\footnote{Usage information can also be used to increase the confidence of the maintainer that a given endpoint is not used, although it can never be used a proof.}
+  Besides showing the overall utilization, this endpoint provides the maintainer with information relevant for decisions regarding endpoint deprecation --- one of the most elementary ways of {\em understanding the needs of the downstream}\cite{Haen14a}. In our case study, the maintainer realized that several endpoints which they thought were not being used, contrary to their expectations, were actually very much in use\footnote{Usage information can also be used to increase the confidence of the maintainer that a given endpoint is not used, although it can never be used a proof.}.
 
   \niceseparator
 
-   \todo{Add the time series graph and discuss it before the heatmap? We can then sell the heatmap better} 
-   \ml{Not sure about which graph you refer to here V}
+%   \todo{Add the time series graph and discuss it before the heatmap? We can then sell the heatmap better} 
+%   \ml{Not sure about which graph you refer to here V}
 
-  A second type of utilization question that the \tool can answer automatically regards {\em cyclic patterns of usage per hour of day}. 
+  A second type of utilization question that the \tool can answer automatically regards {\em cyclic patterns of usage per hour of day} by means of a heatmap, as in \Fref{fig:dp}. 
 
   % \mltp{ can we add vertical lines that highlight the beginning of a new week (e.g. before Sunday): }
   % Patrick: adding separators in the graph is unfortunately not supported by the library.
@@ -44,5 +44,5 @@
     \end{figure}
 
 
-  Figure \ref{fig:dp} shows the the API not being used during the early morning hours, and that most of the activity focused around working hours and some light activity during the evening. This is consistent with the fact that the current users are all in the central european timezone. 
+  Figure \ref{fig:dp} shows the API not being used during the early morning hours, with most of the activity focused around working hours and some light activity during the evening. This is consistent with the fact that the current users are all in the central European timezone. 
 
