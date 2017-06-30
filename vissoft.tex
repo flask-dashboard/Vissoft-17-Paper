@@ -82,9 +82,9 @@ To the best of our knowledge, there is no dedicated solution for monitoring the 
 
   \begin{enumerate}
 
-    \item Use a heavyweight professional API monitoring setup that probably requires setting up a different server and usually treats the subject API as a black-box (e.g. Runscope, Pingdom). 
+    \item Use a commercial monitoring setup that usually requires setting up a different server and usually treats the subject API as a black-box (e.g. Runscope, Pingdom). 
 
-    \item Implement their own analytics tool. 
+    \item Implement their own analytics toolchain but this can take multiple man-months. 
 
     \item Live without analytics insight into their services. \footnote{This is very real option: and is exactly what happened to the API that will be presented in this case study for many months. }
 
@@ -94,12 +94,13 @@ To the best of our knowledge, there is no dedicated solution for monitoring the 
 
 For projects which are done on a budget (e.g. research projects, startups) the first and the second options are often not available due to time and financial constraints. 
 
-To avoid these projects ending up in the third situation, in this paper we present a low-effort, lightweight service monitoring API for Flask-based Python web services.
+To avoid these projects ending up in the third situation, in this paper we present a low-effort, lightweight service monitoring API for Flask-based Python web services that is easy to integrate and provides multiple perspectives on the performance and utilization of the subject API.
 
 \va{@all: I moved the remaining of this section to the Dashboard section since it makes more sense there} \ml{cool!}
 
   \subsection* {Structure of the Paper}
     
+    \ml{to update!}
     The remainder of this paper is structured as follows: In Sections \ref{sec:util}, \ref{sec:perf}, \ref{sec:user} we dedicate a separate section to three types of analysis that \tool supports and present a the way the visualizations support these types of analysis. 
 
 
@@ -212,9 +213,9 @@ To avoid these projects ending up in the third situation, in this paper we prese
 
   To be able to see their improvements in action, the maintainer had to add an extra configuration information to be able to find the `.git' folder from where to retrieve the current version of the deployed application: 
 
-    \begin{lstlisting}[caption=Configuring the \tool with the path to the .git folder enables the generation of evolutionary performance graphs, style=custompython]
+  \begin{lstlisting}[caption=Configuring the \tool with the path to the .git folder enables the generation of evolutionary performance graphs, style=custompython]
 
-    dashboard.config.git = 'path/to/git-root/of/app'
+dashboard.config.git = 'path/to/.git'
 
 
     \end{lstlisting}
@@ -238,7 +239,7 @@ To avoid these projects ending up in the third situation, in this paper we prese
   In order to address this, but not degrade the usual performance the \tool tracks for every endpoint a running average value. When it detects that a given request is an outlier with respect to this past average running value, it triggers the {\em outlier data collection routine} which stores all the previously listed extra information about the current execution environment. 
 
 
-\section {User Centered Visualization}
+\section {User Experience}
 \label{sec:user}
 
   For service endpoints which run computations in real time, the operator of a system must understand the endpoint performance on a per-user basis, especially for situations where the system response time is a function of some individual user load\footnote{E.g. in GMail some users have two emails while other have twenty thousand and this induces different response times for different users}
@@ -321,6 +322,8 @@ To avoid these projects ending up in the third situation, in this paper we prese
 
 \section{Related Work}
 
+\ml{TODO}
+
 Java Visualization \cite{Pauw02a}
 
 Run-time monitoring of services \cite{ghezzi2007run}
@@ -328,9 +331,12 @@ Run-time monitoring of services \cite{ghezzi2007run}
 An existing monitoring tool is Pingdom \footnote{https://www.pingdom.com/company/why-pingdom}, which monitors the uptime of an existing web-service. This tool works by pinging the websites (up to 60 times) every minute automatically. Thus this creates a lot of overhead and is bound to be noisy since it will also be influenced by the speed of the network connection\footnote{Another problem is that such a tool would }
 
 
-\section{Conclusion}
-The conclusion goes here.
+\section{Conclusion and Future Work}
 
+In this paper we have shown that it is possible to build a lightweight monitoring solution which provides plenty of feedback to a user with very little effort. 
+
+In the future we plan to investigate ...
+\ml{TODO}
 
 
 
