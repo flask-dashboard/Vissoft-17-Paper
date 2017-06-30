@@ -69,7 +69,8 @@ Email: \{t.klooster.1,p.p.vogel\}@student.rug.nl, \{v.andrikopoulos,m.f.lungu\}@
 {\em There is no getting around it: you are building a distributed system} argues a paper from almost half a decade ago \cite{cavage2013there}. Indeed, since then, even the simplest second-year student project is a web application implemented as two-tier architectures with a front-end implemented in Javascript and HTML 5 and a service backend, usually a REST API.
 
 % \hfill mds
-Many contemporary programming languages are offering libraries, modules, or frameworks that facilitate the development of such architectures. Python, such a language, is currently one of the most popular programming language choices for implementing the back-end of web applications\footnote{Searching for projects written in Python on GitHub returns more than 500K open source projects as results}. (At the time of writing this paper\footnote{End of June 2017} Python is the 4th most popular programming language according to the Tiobe Index\footnote{TIOBE programming community index is a measure of popularity of programming languages, created and maintained by the TIOBE Company based in Eindhoven, the Netherlands}).
+% Many contemporary programming languages are offering libraries, modules, or frameworks that facilitate the development of such architectures. 
+Python is one of the most popular programming language choices for implementing the back-end of web applications\footnote{Searching for projects written in Python on GitHub returns more than 500K open source projects as results}. (At the time of writing this paper\footnote{End of June 2017} Python is the 4th most popular programming language according to the Tiobe Index\footnote{TIOBE programming community index is a measure of popularity of programming languages, created and maintained by the TIOBE Company based in Eindhoven, the Netherlands}).
  
 % possible flask summary
 Within the Python world, Flask\footnote{\url{http://flask.pocoo.org/}} is a very popular web framework\footnote{More than 25K projects on GitHub (5\% of all Python projects) are implemented with Flask (cf. a GitHub search for ``language:Python Flask'')}. It provides simplicity and flexibility by implementing a bare-minimum web server, and thus advertises as a micro-framework. The Flask tutorial shows how setting up a simple Flask {\em ``Hello World''} web-service requires no more than 5 lines of Python code \cite{ flask:tutorial}.
@@ -198,7 +199,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
     \label{fig:ep}
   \end{figure}
 
-  After investigating this view it became clear to the maintainer that three of the endpoints had very large variation in performance.   The most critical for the application and consequently the one optimized first was the \epTranslations endpoint which was part of an interactive loop in the reader applications that relied on the Zeeguu API. 
+  From this view it became clear to the maintainer that four of the endpoints had very large variation in performance.   The most critical for the application and consequently the one optimized first was the \epTranslations endpoint which was part of an interactive loop in the reader applications that relied on the Zeeguu API. 
 
 
   \niceseparator
@@ -218,17 +219,17 @@ As a case study, on which we will illustrate our solution, we are going to use a
     
   \end{lstlisting}  
  
-  With this extra configuration, the dashboard can now automatically detect the current version of the project, and group measurements by version. \tool can now generate the view in \Fref{fig:tee} where the performance of a given endpoint is tallied by version\footnote{Alternatively, the maintainer can add version identifiers manually for the web application through a configuration file if the system does not use git.}
+  With this extra configuration, the \tool can now automatically detect the current version of the project, and group measurements by version\footnote{Alternatively, the maintainer can add version identifiers manually for the web application through a configuration file if the system does not use git.}. \Fref{fig:tee} is a zoomed-in version of such a view for \epTranslations with versions increasing from top to bottom
   
   
     \begin{figure}[h!]
       \centering
-      \includegraphics[width=\linewidth]{translation_endpoint_evolution_}
+      \includegraphics[width=0.9\linewidth]{translation_endpoint_evolution_}
       \caption{Visualizing The Performance Evolution of the \epTranslations endpoint}
       \label{fig:tee}
     \end{figure}
 
-  This way the maintainer could confirm that the performance of the translation endpoint improved in the recent versions: the median of the last three versions is constantly moving towards the left, and progresses from 1.4 seconds (in the top-most box plot in \Fref{fig:tee}) to 0.8 in the latest version (bottom-most box plot).
+  This view confirms that the performance of the translation endpoint improved in the recent versions: the median of the last three versions is constantly moving towards the left, and progresses from 1.4 seconds (in the top-most box plot in \Fref{fig:tee}) to 0.8 in the latest version (bottom-most box plot).
 
 
   \niceseparator
@@ -242,7 +243,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
 \label{sec:user}
 
   For service endpoints which run computations in real time, the maintainer of a system must understand the endpoint performance on a per-user basis, especially for situations where the system response time is a function of some individual user load\footnote{E.g. in GMail some users have two emails while other have twenty thousand and this induces different response times for different users}.
-%
+
   The \tool provides a way of grouping information on a per user basis. However, to do this, the developer must specify the way in which a given API call can be associated with a given user. There are multiple ways, the simplest of which utilizes again the common expectations of Flask applications that offers a global \code{request} object which contains a \code{session} object which encapsulates information: 
 
   %\begin{lstlisting}[float,caption=Simply define a custom app-specific function for user retrieval and pass it to the \tool to group information by user,style=custompython]
