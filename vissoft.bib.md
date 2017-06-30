@@ -6,7 +6,7 @@ Bibliography relevant to the paper on Visualization for Python and Flask-based W
 
 ## [Web Services Navigator: Visualizing the execution of Web Services](https://www.researchgate.net/profile/John_Morar/publication/224101675_Web_Services_Navigator_Visualizing_the_execution_of_Web_Services/links/562e363d08aef25a24442a76.pdf)
 
-    @ARTICLE{5386699, 
+    @ARTICLE{Pauw05, 
     author={W. De Pauw and M. Lei and E. Pring and L. Villard and M. Arnold and J. F. Morar}, 
     journal={IBM Systems Journal}, 
     title={Web Services Navigator: Visualizing the execution of Web Services}, 
