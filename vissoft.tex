@@ -166,9 +166,9 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
   There are three main categories of visual perspectives that are available using \tool:
   \begin{enumerate}
-    \item \textit{Service Utilization} that present information and measurements about all the endpoints of interest
-    \item \textit{Endpoint Performance} about the measurements pertaining to a specific endpoint.
-    \item \textit{User Experience} that presents information about the performance of a given endpoint for a given user.
+    \item \textit{Service Utilization} presents information about the usage of all the endpoints of interest,
+    \item \textit{Endpoint Performance} presents response times of the various service endpoints,
+    \item \textit{User Experience} presents information about the user-perceived performance of the service endpoints.
   \end{enumerate}
 
   In the remainder of the paper we present several of these perspectives.\footnote{We recommend obtaining a color version of this paper for better readability}
@@ -205,7 +205,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
   \niceseparator
 
-  However, with the current configuration of the tool, it would be impossible for the maintainer to see the improvements resulting from the optimization. One way to do this is to add an extra line of configuration to \tool find the git\footnote{\url{https://git-scm.com/}} folder of the deployed service: 
+  However, with the current configuration of the tool, it would be impossible for the maintainer to see the improvements resulting from the optimization. One way to do this is to add an extra line of configuration to allow \tool to find the git\footnote{\url{https://git-scm.com/}} folder of the deployed service: 
 
 %  \begin{lstlisting}[caption=Configuring the \tool with the path to the .git folder enables the generation of evolutionary performance graphs, style=custompython]
 %
@@ -239,55 +239,7 @@ As a case study, on which we will illustrate our solution, we are going to use a
 
   In order to address this, but without degrading overall performance, the \tool tracks for every endpoint a running average value. When it detects that a given request is an outlier with respect to this past average running value, it triggers the {\em outlier data collection routine} which stores all the previously listed extra information about the current execution environment. 
 
-\newpage
-\section {User Experience}
-\label{sec:user}
-
-  For service endpoints which run computations in real time, the maintainer of a system might want to understand the endpoint performance on a per-user basis, especially for situations where the system response time is a function of some individual user load\footnote{E.g. in GMail some users have two emails while other have twenty thousand and this induces different response times for different users}.
-
-  The \tool provides a way of grouping information on a per user basis. However, to do this, the developer must specify the way in which a given API call can be associated with a given user. There are multiple ways, the simplest of which utilizes again the common expectations of Flask applications that offers a global \code{request} object which contains a \code{session} object which encapsulates information: 
-
-  %\begin{lstlisting}[float,caption=Simply define a custom app-specific function for user retrieval and pass it to the \tool to group information by user,style=custompython]
-  \begin{lstlisting}[style=custompython]  
-    # app specific way of extracting the user
-    # from a flask request object    
-    def get_user_id(request):
-      sid = int(request.args['session'])
-      session = User.find_for_session(sid)
-      return user_id
-
-    # attaching the get_user_id function
-    dashboard.config.get_group_by = get_user_id
-
-  \end{lstlisting}
-
-  In the Zeeguu case study, one of the slowest endpoints, and one with the highest variability as shown in \Fref{fig:ep} is \epFeedItems: it retrieves a list of recommended articles for a given user. However, since a user can be subscribed to anything from one to three dozen article sources, and since the computation of the difficulty is personalized and it is slow, the variability in time among users is likely to be very large. 
-
-
-  Figure \ref{fig:tpu} shows some of the results of calling the \epFeedItems endpoint for various users. The figure shows that the response times for this endpoint can vary considerably for different users. 
-
-  \begin{figure}[!ht]
-    \centering
-    \includegraphics[width=\linewidth]{time_per_user}
-    \caption{The \epFeedItems shows a very high variability across users}
-    \label{fig:tpu}
-  \end{figure}
-
-  \newpage
-  \niceseparator
-
-  The limitation of the previous view is that it does not present the information also on a per version basis. To address this, a different visual perspective entitled \perspective{Endpoint Evolving per-User Performance} can be defined. Figure \ref{fig:tuv} presents such a perspective by mapping the average execution time for a given user (lines) and given version (columns) on the area of the corresponding circle. The colors represent users.
-
-  \begin{figure}[!ht]
-    \centering
-    \includegraphics[width=\linewidth]{time_per_user_per_version}
-    \caption{This perspective shows that the evolution of response times for individual users (horizontal lines) across versions (the x-axis)}
-    \label{fig:tuv}
-  \end{figure}
-
-  For the situations in which the user information is not available, the \tool also tracks out of the box information about different IPs. In some cases this might be a sufficiently good approximation of the user diversity and identity. 
-  %
-  In the interest of space limitations we are not showing this, and quite a few more visualizations provided by the \tool. The interested reader is referred to \Sref{sec:install} for further information on how to install the tool and how to get access to the data of the case study.
+\input{user_experience}
 
 \section{Discussion}
 
