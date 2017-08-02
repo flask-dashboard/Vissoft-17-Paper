@@ -111,6 +111,47 @@ A Quantitative Analysis of Developer Information Needs in Software Ecosystems
         Year = {2014}
         }
 
+    @inproceedings{Haen13a,
+      Annote = {internationalworkshop},
+      Author = {Haenni, Nicole and Lungu, Mircea and Schwarz, Niko and Nierstrasz, Oscar},
+      Booktitle = {Proceedings of the 1st Workshop on Ecosystem Architectures},
+      Keywords = {ecosystems scg-pub snf-asa1 scg13 skip-doi jb14},
+      Medium = {2},
+      Pages = {1--5},
+      Peerreview = {yes},
+      Title = {Categorizing Developer Information Needs in Software Ecosystems},
+      Url = {http://scg.unibe.ch/archive/papers/Haen13a-EcosystemInformationNeeds.pdf},
+      Year = {2013},
+      Bdsk-Url-1 = {http://scg.unibe.ch/archive/papers/Haen13a-EcosystemInformationNeeds.pdf}}
+
+
+@inproceedings{Nier12b,
+  Abstract = {Informed decision making is a critical activity in software development, but it is poorly
+  supported by common development environments, which focus mainly on low-level programming tasks. We posit
+  the need for agile software assessment, which aims to support decision making by enabling rapid and
+  effective construction of software models and custom analyses. Agile software assessment entails
+  gathering and exploiting the broader context of software information related to the system at hand as
+  well as the ecosystem of related projects, and beyond to include ``big software data''. Finally, informed
+  decision making entails continuous assessment by monitoring the evolving system and its architecture. We
+  identify several key research challenges in supporting agile software assessment by focusing on
+  customization, context and continuous assessment.},
+  Author = {Oscar Nierstrasz and Mircea Lungu},
+  Booktitle = {Proceedings of International Conference on Program Comprehension (ICPC 2012)},
+  Doi = {10.1109/ICPC.2012.6240507},
+  Issn = {1063-6897},
+  Keywords = {scg-pub snf12 snf-asa1 scg12 jb12 moose-pub},
+  Medium = {2},
+  Pages = {3--10},
+  Peerreview = {no},
+  Title = {Agile software assessment},
+  Annote = {invited},
+  Url = {http://scg.unibe.ch/archive/papers/Nier12bASA.pdf},
+  Year = {2012},
+  Bdsk-Url-1 = {http://scg.unibe.ch/archive/papers/Nier12bASA.pdf},
+  Bdsk-Url-2 = {http://dx.doi.org/10.1109/ICPC.2012.6240507}}
+
+
+
 Classical paper talking about basic information visualization strategies:
 
         @inproceedings{Shne99a,
