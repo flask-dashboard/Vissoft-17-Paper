@@ -1,3 +1,7 @@
-# vissoft17
+# Vissoft-17-Paper
 
-[The Paper Draft](https://github.com/mircealungu/vissoft17/blob/master/vissoft.pdf)
+Repository of the paper that was published at VISSOFT 2017 about the Flask Dashboard.
+
+[Preprint of the Paper](https://github.com/flask-dashboard/Vissoft-17-Paper/blob/master/FlaskDashboard-Preprint.pdf)
+
+
